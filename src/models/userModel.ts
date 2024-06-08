@@ -70,17 +70,16 @@
 //   isUser,
 // } as const;
 
-import { Schema, model } from 'mongoose';
+import { Schema, model, Model } from 'mongoose';
 
-export type TUser = {
-  // id: number;
+type User = {
   name: string;
   email: string;
   password: string;
   role: 'admin' | 'visitor';
 };
 
-const userSchema: Schema = new Schema({
+const userSchema: Schema = new Schema<User, Model<User>>({
   name: {
     type: String,
     required: true,
@@ -104,6 +103,7 @@ const userSchema: Schema = new Schema({
   },
 });
 
-const UserModel = model<TUser>('User', userSchema);
+
+const UserModel = model<User>('User', userSchema);
 
 export default UserModel;
