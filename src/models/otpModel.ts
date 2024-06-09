@@ -1,5 +1,5 @@
 import { model, Schema, Model } from 'mongoose';
-import { sendVerificationEmail } from '../util/optHelper';
+import { sendOTP } from '../util/opt';
 
 type Otp = {
     email: string;
@@ -24,10 +24,11 @@ const otpSchema: Schema = new Schema<Otp, Model<Otp>>({
 });
 
 otpSchema.pre<Otp>('save', async function (next): Promise<void> {
-    console.log("New document saved to the database");
-    if (this.isNew) {
-        await sendVerificationEmail(this.email, this.otp);
-    }
+    // console.log("New document saved to the database");
+    // if (this.isNew) {
+    //     await sendOTP(this.email, this.otp);
+    // }
+    await sendOTP(this.email, this.otp);
     next();
 });
 
