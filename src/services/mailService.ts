@@ -33,7 +33,7 @@ class MailService {
 
         try {
             const response = await this.transporter.sendMail({
-                from: `"userName" ${process.env.SMTP_SENDER || options.from}`,
+                from: options.from,
                 to: options.to,
                 cc: options.cc,
                 bcc: options.bcc,
@@ -41,7 +41,7 @@ class MailService {
                 text: options.text,
                 html: options.html,
             }) as string;
-            console.log(response);
+            // console.log(response);
             return response;
         } catch (error) {
             console.log(error);
