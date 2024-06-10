@@ -14,7 +14,7 @@ class MailService {
         return MailService.instance;
     }
 
-    private createConnection() {
+    public createConnection() {
         this.transporter = createTransport({
             host: process.env.SMTP_HOST || '',
             port: Number(process.env.SMTP_PORT) || '',
@@ -31,17 +31,22 @@ class MailService {
         if (!this.transporter)
             return 'transporter does not exist, please create connection';
 
-        const response = await this.transporter.sendMail({
-            from: `"userName" ${process.env.SMTP_SENDER || options.from}`,
-            to: options.to,
-            cc: options.cc,
-            bcc: options.bcc,
-            subject: options.subject,
-            text: options.text,
-            html: options.html,
-        }) as string;
-        console.log(response);
-        return response;
+        try {
+            const response = await this.transporter.sendMail({
+                from: `"userName" ${process.env.SMTP_SENDER || options.from}`,
+                to: options.to,
+                cc: options.cc,
+                bcc: options.bcc,
+                subject: options.subject,
+                text: options.text,
+                html: options.html,
+            }) as string;
+            console.log(response);
+            return response;
+        } catch (error) {
+            console.log(error);
+            return '';
+        }
     }
 }
 
