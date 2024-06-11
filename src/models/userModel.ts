@@ -72,14 +72,14 @@
 
 import { Schema, model, Model } from 'mongoose';
 
-type User = {
+export interface IUser {
   name: string;
   email: string;
   password: string;
   role: 'admin' | 'visitor';
-};
+}
 
-const userSchema: Schema = new Schema<User, Model<User>>({
+const userSchema: Schema = new Schema<IUser, Model<IUser>>({
   name: {
     type: String,
     required: true,
@@ -104,6 +104,6 @@ const userSchema: Schema = new Schema<User, Model<User>>({
 });
 
 
-const UserModel = model<User>('User', userSchema);
+const UserModel = model<IUser>('User', userSchema);
 
 export default UserModel;
