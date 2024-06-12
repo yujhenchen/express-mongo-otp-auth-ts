@@ -31,7 +31,7 @@ export async function sendOTP(req: IReq<{ user: IUser }>,
         console.log(error);
         return res.status(500).json({
             success: false,
-            error: JSON.stringify(error)
+            error: JSON.stringify(error),
         });
     }
 }
