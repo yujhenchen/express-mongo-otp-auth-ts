@@ -3,7 +3,8 @@ import OtpModel from '@src/models/otpModel';
 import { IReq, IRes } from '@src/routes/types/express/misc';
 import { IUser } from '@src/models/userModel';
 
-export async function sendOTP(req: IReq<{ user: IUser }>, res: IRes) {
+export async function sendOTP(req: IReq<{ user: IUser }>,
+    res: IRes): Promise<IRes> {
     try {
         const { email } = req.body.user;
 
@@ -21,7 +22,7 @@ export async function sendOTP(req: IReq<{ user: IUser }>, res: IRes) {
             await OtpModel.create(otpPayload);
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: 'OTP sent successfully',
             otpCode,
