@@ -1,13 +1,13 @@
 import { model, Schema, Model } from 'mongoose';
 import { sendOTP } from '../util/opt';
 
-type Otp = {
+export interface IOtp {
     email: string;
     otp: string;
     createdAt: Date;
-};
+}
 
-const otpSchema: Schema = new Schema<Otp, Model<Otp>>({
+const otpSchema: Schema = new Schema<IOtp, Model<IOtp>>({
     email: {
         type: String,
         required: true,
@@ -23,7 +23,7 @@ const otpSchema: Schema = new Schema<Otp, Model<Otp>>({
     },
 });
 
-otpSchema.pre<Otp>('save', async function (next): Promise<void> {
+otpSchema.pre<IOtp>('save', async function (next): Promise<void> {
     // console.log("New document saved to the database");
     // if (this.isNew) {
     //     await sendOTP(this.email, this.otp);
@@ -32,6 +32,6 @@ otpSchema.pre<Otp>('save', async function (next): Promise<void> {
     next();
 });
 
-const OtpModel = model<Otp>('OTP', otpSchema);
+const OtpModel = model<IOtp>('OTP', otpSchema);
 
 export default OtpModel;
