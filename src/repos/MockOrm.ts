@@ -1,42 +1,42 @@
 
 
-import jsonfile from 'jsonfile';
+// import jsonfile from 'jsonfile';
 
-import { IUser } from '@src/models/User';
-
-
-// **** Variables **** //
-
-const DB_FILE_NAME = 'database.json';
+// import { IUser } from '@src/models/userModel';
 
 
-// **** Types **** //
+// // **** Variables **** //
 
-interface IDb {
-  users: IUser[];
-}
+// const DB_FILE_NAME = 'database.json';
 
 
-// **** Functions **** //
+// // **** Types **** //
 
-/**
- * Fetch the json from the file.
- */
-function openDb(): Promise<IDb> {
-  return jsonfile.readFile(__dirname + '/' + DB_FILE_NAME) as Promise<IDb>;
-}
-
-/**
- * Update the file.
- */
-function saveDb(db: IDb): Promise<void> {
-  return jsonfile.writeFile((__dirname + '/' + DB_FILE_NAME), db);
-}
+// interface IDb {
+//   users: IUser[];
+// }
 
 
-// **** Export default **** //
+// // **** Functions **** //
 
-export default {
-  openDb,
-  saveDb,
-} as const;
+// /**
+//  * Fetch the json from the file.
+//  */
+// function openDb(): Promise<IDb> {
+//   return jsonfile.readFile(__dirname + '/' + DB_FILE_NAME) as Promise<IDb>;
+// }
+
+// /**
+//  * Update the file.
+//  */
+// function saveDb(db: IDb): Promise<void> {
+//   return jsonfile.writeFile((__dirname + '/' + DB_FILE_NAME), db);
+// }
+
+
+// // **** Export default **** //
+
+// export default {
+//   openDb,
+//   saveDb,
+// } as const;
