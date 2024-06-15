@@ -1,4 +1,4 @@
-import MailService from '@src/services/mailService';
+import MailService from '@src/services/mail.service';
 import { MailInterface } from './interfaces';
 
 const emailBody = (otpCode: string): string => `<h1>Please confirm your OTP</h1>
