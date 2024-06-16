@@ -1,16 +1,9 @@
-import './pre-start'; // Must be the first import
-import logger from 'jet-logger';
+import app from './config/express';
+import config from 'config/config';
 
-import EnvVars from '@src/constants/EnvVars';
-import server from './server';
-import connectToDatabase from './services/database.service';
+const server = app.listen(config.port, () =>
+    console.log(`
+  🚀 Server ready at: http://localhost:${config.port} ⭐️`),
+);
 
-
-// **** Run **** //
-
-const SERVER_START_MSG = ('Express server started on port: ' +
-  EnvVars.Port.toString());
-
-server.listen(EnvVars.Port, () => logger.info(SERVER_START_MSG));
-
-connectToDatabase();
+export default server;
