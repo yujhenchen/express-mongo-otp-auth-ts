@@ -5,7 +5,6 @@ dotenvConfig({
     path: ['.env.local', '.env']
 });
 
-console.log(`process.env.NODE_ENV: ${process.env.NODE_ENV}`)
 
 // define validation for all the env vars
 const envVarsSchema = Joi.object({
@@ -23,6 +22,7 @@ const envVarsSchema = Joi.object({
     //     .description('JWT Secret required to sign'),
     // MONGO_HOST: Joi.string().required().description('Mongo DB host url'),
     // MONGO_PORT: Joi.number().default(27017),
+    DB_CONN_STRING: Joi.string().default(process.env.DB_CONN_STRING)
 })
     .unknown()
     .required();
@@ -42,6 +42,7 @@ const config = {
     //     host: envVars.MONGO_HOST,
     //     // port: envVars.MONGO_PORT,
     // },
+    dbConnString: envVars.DB_CONN_STRING,
 };
 
 export default config;
