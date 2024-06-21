@@ -11,7 +11,8 @@ export default function connectToDatabase(dbConnString: string) {
         connection.on('close', () => console.info('close'));
 
         connection.on('error', () => {
-            throw new Error(`Failed to connect to database: ${dbConnString}`)
+            // throw new Error(`Failed to connect to database: ${dbConnString}`)
+            console.error(`Failed to connect to database: ${dbConnString}`);
         });
 
         connect(dbConnString);
