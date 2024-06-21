@@ -13,10 +13,10 @@ const userSchema = Joi.object({
     repeatPassword: Joi.string().required().valid(Joi.ref('password'))
 });
 
-async function insert(user: IUser) {
+async function create(user: IUser) {
     user = await userSchema.validateAsync(user, { abortEarly: false });
     user.password = bcrypt.hashSync(user.password, saltOrRounds);
     return await new User(user).save();
 }
 
-export default insert;
+export default create;
