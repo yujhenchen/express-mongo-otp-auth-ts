@@ -28,6 +28,10 @@ const UserSchema: Schema = new Schema<IUser, Model<IUser>>({
             message: '{ROLE} does not exist',
         },
     },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 
