@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import createError from 'http-errors'
 import { Request, Response, NextFunction } from 'express';
+import session from 'express-session';
 import config from './config';
 import routes from '../routes/index.route';
 
@@ -34,6 +35,16 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     const err = createError(404, 'Page Not Found');
     return next(err);
 });
+
+// Create a session middleware with the given options.
+app.use(
+    session({
+        secret: 'my secret',
+        saveUninitialized: false,
+        resave: true,
+        // cookie: { secure: true } // serve secure cookies
+    })
+);
 
 // error handler, send stacktrace only during development
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
