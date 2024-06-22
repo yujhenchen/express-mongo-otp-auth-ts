@@ -1,13 +1,21 @@
-import { signin, signout, signup } from "controllers/auth.controller";
-import { Router } from "express";
+import { signup } from "controllers/auth.controller";
+import { Request, Response, Router, NextFunction } from 'express';
 
 const authRoutes = Router();
 
+// middleware that is specific to this router
+const timeLog = (req: Request, res: Response, next: NextFunction) => {
+    console.log('Time: ', Date.now());
+    next();
+}
+
+authRoutes.use(timeLog);
+
 authRoutes.post('/signup', signup);
 
-authRoutes.post('/login', signin);
+// authRoutes.post('/signin', signin);
 
-authRoutes.post('/logout', signout);
+// authRoutes.post('/signout', signout);
 
 // authRoutes.get('/userinfo');
 

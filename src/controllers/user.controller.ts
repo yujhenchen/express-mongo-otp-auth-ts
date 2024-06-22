@@ -32,24 +32,24 @@ export async function insertUser(user: IUser): Promise<(Document<unknown, {}, IU
     }
 }
 
-// export async function findOneUser(user: IUser) {
-//     try {
-//         const foundUser = await User.findOne({
-//             where: {
-//                 name: user.name,
-//             }
-//         });
+export async function findOneUser(user: IUser) {
+    try {
+        const foundUser = await User.findOne({
+            where: {
+                name: user.name,
+            }
+        });
 
-//         // user not found
-//         if (!foundUser) {
-//             console.error(`findOneUser: user ${user.name} not found`);
-//             return null;
-//         }
+        // user not found
+        if (!foundUser) {
+            console.error(`findOneUser: user ${user.name} not found`);
+            return null;
+        }
 
-//         // verify password
+        // verify password
 
-//     } catch (error) {
-//         console.error(error);
-//         return null;
-//     }
-// }
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
