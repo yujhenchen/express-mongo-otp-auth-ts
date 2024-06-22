@@ -2,7 +2,7 @@
   "name": "express-mongo-otp-auth-ts",
   "version": "1.0.0",
   "repository": "https://github.com/yujhenchen/express-mongo-otp-auth-ts.git",
-  "author": "yujhenchen <yujhen.chen93@gmail.com>",
+  "author": "yujhenchen",
   "license": "MIT",
   "scripts": {
     "build": "npx ts-node build.ts",
