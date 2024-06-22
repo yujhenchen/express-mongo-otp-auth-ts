@@ -2,12 +2,21 @@ import jwt from 'jsonwebtoken';
 import config from '../config/config';
 import IUser from 'interfaces/models/user';
 // import { APIRequest, APIResponse } from 'interfaces/express';
-import { insertUser } from './user.controller';
+import { findOneUser, insertUser } from './user.controller';
 import { Request, Response } from 'express';
+import bcrypt from 'bcrypt';
 
-export function generateToken(user: IUser): string {
-    const payload = JSON.stringify(user);
-    return jwt.sign(payload, config.jwtSecret);
+export function generateToken(userName: string): string {
+    try {
+        const payload = { name: userName };
+        return jwt.sign(payload, config.jwtSecret, {
+            algorithm: 'HS256',
+            expiresIn: 86400 // expires in 24 hours
+        });
+    } catch (error) {
+        console.error(error);
+        return '';
+    }
 }
 
 export async function signup(req: Request, res: Response): Promise<void> {
@@ -23,22 +32,38 @@ export async function signup(req: Request, res: Response): Promise<void> {
     res.status(200).send({ message: "User registered successfully!" });
 }
 
-// export function signin(req: Request, res: Response): void {
-//     try {
-//         const user = req.body;
-//         const token = generateToken(user);
-//         res.json({ user, token });
-//         res.status(200).send({
-//             // id: user.id,
-//             name: user.name,
-//             email: user.email,
-//             // role: user.role,
-//             createdAt: user.createdAt
-//         });
-//     } catch (error) {
-//         res.status(500).send({ message: error });
-//     }
-// }
+export async function signin(req: Request, res: Response): Promise<void> {
+    try {
+        const { name, password } = req.body;
+        const foundUser = await findOneUser(name);
+        if (!foundUser) {
+            res.status(404).send({ message: `User Not found. User name: ${name}` });
+            return;
+        }
+
+        const isPasswordValid = bcrypt.compareSync(password, foundUser.password);
+        if (!isPasswordValid) {
+            res.status(401).send({
+                message: "Invalid Password!",
+            });
+            return;
+        }
+
+        const token = generateToken(name);
+        if (!token) {
+            res.status(500).send({ message: 'Failed to generate token' });
+        }
+
+        res.status(200).send({
+            name: foundUser.name,
+            email: foundUser.email,
+            // role: foundUser.role,
+            token
+        });
+    } catch (error) {
+        res.status(500).send({ message: error });
+    }
+}
 
 // export function signout(req: Request, res: Response): void {
 
