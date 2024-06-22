@@ -1,4 +1,4 @@
-import { signin, signup } from "controllers/auth.controller";
+import { signIn, signOut, signUp } from "controllers/auth.controller";
 import { Request, Response, Router, NextFunction } from 'express';
 
 const authRoutes = Router();
@@ -11,11 +11,11 @@ const timeLog = (req: Request, res: Response, next: NextFunction) => {
 
 authRoutes.use(timeLog);
 
-authRoutes.post('/signup', signup);
+authRoutes.post('/signup', signUp);
 
-authRoutes.post('/signin', signin);
+authRoutes.post('/signin', signIn);
 
-// authRoutes.post('/signout', signout);
+authRoutes.post('/signout', signOut);
 
 // authRoutes.get('/userinfo');
 

@@ -18,7 +18,7 @@ export function generateToken(userName: string): string {
     }
 }
 
-export async function signup(req: Request, res: Response): Promise<void> {
+export async function signUp(req: Request, res: Response): Promise<void> {
 
     const doc = await insertUser(req.body);
     if (!doc) {
@@ -31,7 +31,7 @@ export async function signup(req: Request, res: Response): Promise<void> {
     res.status(200).send({ message: "User registered successfully!" });
 }
 
-export async function signin(req: Request, res: Response): Promise<void> {
+export async function signIn(req: Request, res: Response): Promise<void> {
     try {
         const { name, password } = req.body;
         const foundUser = await findOneUser(name);
@@ -64,15 +64,15 @@ export async function signin(req: Request, res: Response): Promise<void> {
     }
 }
 
-// export function signout(req: Request, res: Response): void {
+export function signOut(req: Request, res: Response): void {
 
-//     try {
-//         req.session.destroy(function (err) {
-//             // cannot access session here
-//             console.error(err);
-//         });
-//         res.status(200).send({ message: "You've been signed out!" });
-//     } catch (error) {
-//         res.status(500).send({ message: error });
-//     }
-// }
+    // try {
+    //     req.session.destroy(function (error) {
+    //         // cannot access session here
+    //         console.error(error);
+    //     });
+    //     res.status(200).send({ message: "You've been signed out!" });
+    // } catch (error) {
+    //     res.status(500).send({ message: error });
+    // }
+}
