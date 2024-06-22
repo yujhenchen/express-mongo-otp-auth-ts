@@ -1,8 +1,11 @@
 import { connection, connect } from 'mongoose';
+import config from './config';
 
-export default function connectToDatabase(dbConnString: string) {
+export default async function connectToDatabase(dbConnString: string) {
+    const serverSelectionTimeoutMS = 60000;
 
     try {
+        connection.on('connecting', () => console.info('connecting'));
         connection.on('connected', () => console.info('connected'));
         connection.on('open', () => console.info('open'));
         connection.on('disconnected', () => console.info('disconnected'));
@@ -15,7 +18,10 @@ export default function connectToDatabase(dbConnString: string) {
             console.error(`Failed to connect to database: ${dbConnString}`);
         });
 
-        connect(dbConnString);
+        await connect(dbConnString, {
+            serverSelectionTimeoutMS,
+            dbName: config.dbName,
+        });
     }
     catch (error) {
         console.error(error)
