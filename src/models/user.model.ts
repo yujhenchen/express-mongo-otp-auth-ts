@@ -1,7 +1,11 @@
 import IUser from "interfaces/models/user";
-import { Model, Schema, model } from "mongoose";
+import { Document, Model, Schema, model } from "mongoose";
 
-const UserSchema: Schema = new Schema<IUser, Model<IUser>>({
+interface IUserDoc extends IUser, Document { };
+
+interface IUserModel extends Model<IUserDoc> { };
+
+const UserSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -35,6 +39,6 @@ const UserSchema: Schema = new Schema<IUser, Model<IUser>>({
 });
 
 
-const User = model<IUser>('User', UserSchema);
+const User = model<IUserDoc, IUserModel>('users', UserSchema, 'users');
 
 export default User;
