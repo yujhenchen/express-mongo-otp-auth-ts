@@ -21,13 +21,13 @@ const UserSchema: Schema = new Schema<IUser, Model<IUser>>({
         type: String,
         required: true,
     },
-    role: {
-        type: String,
-        enum: {
-            values: ['admin', 'visitor'],
-            message: '{ROLE} does not exist',
-        },
-    },
+    // role: {
+    //     type: String,
+    //     enum: {
+    //         values: ['admin', 'visitor'],
+    //         message: '{ROLE} does not exist',
+    //     },
+    // },
     createdAt: {
         type: Date,
         default: Date.now

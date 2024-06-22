@@ -8,7 +8,7 @@ export interface IUser {
     name: string;
     email: string;
     password: string;
-    role: 'admin' | 'visitor';
+    // role: 'admin' | 'visitor';
     createdAt: Date;
 }
 
