@@ -14,17 +14,10 @@ const userSchema = Joi.object({
     repeatPassword: Joi.string().required().valid(Joi.ref('password'))
 });
 
-export async function insertUser(user: IUser): Promise<(Document<unknown, {}, IUser> & IUser & {
-    _id: Types.ObjectId;
-}) | null> {
+export async function insertUser(user: IUser) {
     try {
-        // verify fields
         user = await userSchema.validateAsync(user, { abortEarly: false });
-
-        // hash password
         user.password = bcrypt.hashSync(user.password, saltOrRounds);
-
-        // insert a new document
         return await new User(user).save();
     } catch (error) {
         console.error(error);
@@ -32,22 +25,14 @@ export async function insertUser(user: IUser): Promise<(Document<unknown, {}, IU
     }
 }
 
-export async function findOneUser(user: IUser) {
+export async function findOneUser(userName: string) {
     try {
-        const foundUser = await User.findOne({
-            where: {
-                name: user.name,
-            }
-        });
+        const user = await User.findOne({ name: userName });
 
-        // user not found
-        if (!foundUser) {
-            console.error(`findOneUser: user ${user.name} not found`);
+        if (!user) {
             return null;
         }
-
-        // verify password
-
+        return user;
     } catch (error) {
         console.error(error);
         return null;
