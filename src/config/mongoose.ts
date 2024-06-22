@@ -14,16 +14,17 @@ export default async function connectToDatabase(dbConnString: string) {
         connection.on('close', () => console.info('close'));
 
         connection.on('error', () => {
-            // throw new Error(`Failed to connect to database: ${dbConnString}`)
-            console.error(`Failed to connect to database: ${dbConnString}`);
+            console.error(`🛸 Failed to connect to database: ${dbConnString}`);
         });
 
         await connect(dbConnString, {
             serverSelectionTimeoutMS,
             dbName: config.dbName,
         });
+        return '🟢 Successfully connected to database'
     }
     catch (error) {
-        console.error(error)
+        console.error(error);
+        return `🛸 Failed to connect to database: ${JSON.stringify(error)}`;
     }
 }
