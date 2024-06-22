@@ -1,13 +1,13 @@
-import { login, logout, signup } from "controllers/auth.controller";
+import { signin, signout, signup } from "controllers/auth.controller";
 import { Router } from "express";
 
 const authRoutes = Router();
 
 authRoutes.post('/signup', signup);
 
-authRoutes.post('/login', login);
+authRoutes.post('/login', signin);
 
-authRoutes.post('/logout', logout);
+authRoutes.post('/logout', signout);
 
 // authRoutes.get('/userinfo');
 
