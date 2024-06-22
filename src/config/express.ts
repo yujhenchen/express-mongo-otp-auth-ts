@@ -37,9 +37,11 @@ app.use('/', routes);
 
 
 // error handler, send stacktrace only during development
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     // customize Joi validation errors
     if (err.isJoi) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         err.message = err.details.map((e: any) => e.message).join('; ');
         err.status = 400;
     }

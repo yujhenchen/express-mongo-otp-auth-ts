@@ -2,7 +2,6 @@ import Joi from 'joi';
 import bcrypt from 'bcrypt';
 import User from 'models/user.model';
 import IUser from 'interfaces/models/user';
-import { Document, Types } from 'mongoose';
 
 const saltOrRounds = 10;
 

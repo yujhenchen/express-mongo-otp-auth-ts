@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 import config from '../config/config';
-import IUser from 'interfaces/models/user';
 // import { APIRequest, APIResponse } from 'interfaces/express';
 import { findOneUser, insertUser } from './user.controller';
 import { Request, Response } from 'express';
