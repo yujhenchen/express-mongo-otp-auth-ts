@@ -1,13 +1,14 @@
 // import { APIRequest, APIResponse } from 'interfaces/express';
-import { findOneUser, insertUser } from './user.controller';
+import { insertUser } from './user.controller';
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import status from 'http-status';
+import User from 'models/user.model';
 
 export async function signUp(req: Request, res: Response): Promise<void> {
     try {
         const { name } = req.body;
-        const user = await findOneUser(name);
+        const user = await User.findOne({ name }).exec();
         if (user) {
             res.status(status.CONFLICT).send({ message: `User already exists: ${name}` });
             return;
@@ -30,7 +31,7 @@ export async function signUp(req: Request, res: Response): Promise<void> {
 export async function signIn(req: Request, res: Response): Promise<void> {
     try {
         const { name, password } = req.body;
-        const user = await findOneUser(name);
+        const user = await User.findOne({ name }).exec();
         if (!user) {
             res.status(status.NOT_FOUND).send({ message: `User Not found. User name: ${name}` });
             return;
@@ -65,7 +66,7 @@ export async function signOut(req: Request, res: Response): Promise<void> {
 
     try {
         const { name, password } = req.body;
-        const user = await findOneUser(name);
+        const user = await User.findOne({ name }).exec();
         if (!user) {
             res.status(status.NOT_FOUND).send({ message: `User Not found. User name: ${name}` });
             return;

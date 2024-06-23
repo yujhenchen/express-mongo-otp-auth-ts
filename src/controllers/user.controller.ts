@@ -23,16 +23,3 @@ export async function insertUser(user: IUser) {
         return null;
     }
 }
-
-export async function findOneUser(userName: string) {
-    try {
-        const user = await User.findOne({ name: userName }).exec();
-        if (!user) {
-            return null;
-        }
-        return user;
-    } catch (error) {
-        console.error(error);
-        return null;
-    }
-}
