@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import bcrypt from 'bcrypt';
 import User from 'models/user.model';
-import IUser from 'interfaces/models/user';
+import { IUser } from 'interfaces/models/user';
 
 const saltOrRounds = 10;
 
@@ -27,7 +27,6 @@ export async function insertUser(user: IUser) {
 export async function findOneUser(userName: string) {
     try {
         const user = await User.findOne({ name: userName }).exec();
-
         if (!user) {
             return null;
         }
