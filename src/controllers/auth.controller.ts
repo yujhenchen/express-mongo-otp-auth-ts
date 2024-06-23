@@ -61,15 +61,26 @@ export async function signIn(req: Request, res: Response): Promise<void> {
     }
 }
 
-export function signOut(req: Request, res: Response): void {
+export async function signOut(req: Request, res: Response): Promise<void> {
 
     try {
-        /**
-         * delete user token
-         * refer:
-         * https://www.tenxdeveloper.com/blog/jwt-authentication-and-authorization
-         * https://medium.com/@sarthakmittal1461/to-build-login-sign-up-and-logout-restful-apis-with-node-js-using-jwt-authentication-f3d7287acca2
-         */
+        const { name, password } = req.body;
+        const user = await findOneUser(name);
+        if (!user) {
+            res.status(404).send({ message: `User Not found. User name: ${name}` });
+            return;
+        }
+
+        const isPasswordValid = bcrypt.compareSync(password, user.password);
+        if (!isPasswordValid) {
+            res.status(401).send({
+                message: "Invalid Password!",
+            });
+            return;
+        }
+
+        await user.deleteToken();
+
         res.status(200).send({ message: "You've been signed out!" });
     } catch (error) {
         res.status(500).send({ message: error });
