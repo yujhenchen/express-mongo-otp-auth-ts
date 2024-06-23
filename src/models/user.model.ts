@@ -5,7 +5,7 @@ interface IUserDoc extends IUser, Document { };
 
 interface IUserModel extends Model<IUserDoc> { };
 
-const UserSchema = new Schema({
+const UserSchema = new Schema<IUserDoc, IUserModel>({
     name: {
         type: String,
         required: true,
@@ -33,6 +33,10 @@ const UserSchema = new Schema({
     //         message: '{ROLE} does not exist',
     //     },
     // },
+    token: {
+        type: String,
+        default: ''
+    },
     createdAt: {
         type: Date,
         default: Date.now
