@@ -1,4 +1,4 @@
-import { MailInterface } from 'interfaces/otp';
+import { IEmail } from 'interfaces/email';
 import { Transporter, createTransport } from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
@@ -27,7 +27,7 @@ class EmailService {
         } as SMTPTransport.Options);
     }
 
-    public async sendMail(options: MailInterface) {
+    public async sendMail(options: IEmail) {
         if (!this.transporter)
             return 'transporter does not exist, please create connection';
 
@@ -57,7 +57,7 @@ class EmailService {
             const mailService = EmailService.getInstance();
             mailService.createConnection();
 
-            const options: MailInterface = {
+            const options: IEmail = {
                 from: '',
                 to: email,
                 subject: 'Verification Email',
