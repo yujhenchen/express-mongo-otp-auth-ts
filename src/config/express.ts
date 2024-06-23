@@ -3,8 +3,9 @@ import logger from 'morgan';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import cors from 'cors';
-// import createError from 'http-errors'
+import createError from 'http-errors'
 import { Request, Response, NextFunction } from 'express';
+import status from 'http-status';
 import config from './config';
 import routes from '../routes/index.route';
 
@@ -30,10 +31,10 @@ app.use('/', routes);
 
 
 // catch 404 and forward to error handler
-// app.use((req: Request, res: Response, next: NextFunction) => {
-//     const err = createError(404, 'Page Not Found');
-//     return next(err);
-// });
+app.use((req: Request, res: Response, next: NextFunction) => {
+    const err = createError(status.NOT_FOUND, 'Page Not Found');
+    return next(err);
+});
 
 
 // error handler, send stacktrace only during development
@@ -43,10 +44,10 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     if (err.isJoi) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         err.message = err.details.map((e: any) => e.message).join('; ');
-        err.status = 400;
+        err.status = status.BAD_REQUEST;
     }
 
-    res.status(err.status || 500).json({
+    res.status(err.status || status.INTERNAL_SERVER_ERROR).json({
         message: err.message,
     });
     next(err);
