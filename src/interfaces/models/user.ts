@@ -1,3 +1,5 @@
+import { Document, Model } from "mongoose";
+
 export interface Tokens {
     kind: string;
     accessToken: string;
@@ -13,4 +15,13 @@ export interface IUser {
     createdAt: Date;
 }
 
-export default IUser;
+export interface IUserDoc extends IUser, Document { };
+
+export interface IUserMethods {
+    // generateAuthToken(): Promise<string>;
+    // toJSON(): IUser;
+    generateToken(): Promise<string>;
+    deleteToken(): Promise<void>;
+}
+
+export interface IUserModel extends Model<IUserDoc, Record<string, never>, IUserMethods> { };

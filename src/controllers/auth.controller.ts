@@ -1,22 +1,8 @@
-import jwt from 'jsonwebtoken';
-import config from '../config/config';
 // import { APIRequest, APIResponse } from 'interfaces/express';
 import { findOneUser, insertUser } from './user.controller';
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 
-export function generateToken(userName: string): string {
-    try {
-        const payload = { name: userName };
-        return jwt.sign(payload, config.jwtSecret, {
-            algorithm: 'HS256',
-            expiresIn: 86400 // expires in 24 hours
-        });
-    } catch (error) {
-        console.error(error);
-        return '';
-    }
-}
 
 export async function signUp(req: Request, res: Response): Promise<void> {
 
@@ -48,9 +34,10 @@ export async function signIn(req: Request, res: Response): Promise<void> {
             return;
         }
 
-        const token = generateToken(name);
+        const token = await foundUser.generateToken();
         if (!token) {
             res.status(500).send({ message: 'Failed to generate token' });
+            return;
         }
 
         res.status(200).send({
@@ -66,13 +53,15 @@ export async function signIn(req: Request, res: Response): Promise<void> {
 
 export function signOut(req: Request, res: Response): void {
 
-    // try {
-    //     req.session.destroy(function (error) {
-    //         // cannot access session here
-    //         console.error(error);
-    //     });
-    //     res.status(200).send({ message: "You've been signed out!" });
-    // } catch (error) {
-    //     res.status(500).send({ message: error });
-    // }
+    try {
+        /**
+         * delete user token
+         * refer:
+         * https://www.tenxdeveloper.com/blog/jwt-authentication-and-authorization
+         * https://medium.com/@sarthakmittal1461/to-build-login-sign-up-and-logout-restful-apis-with-node-js-using-jwt-authentication-f3d7287acca2
+         */
+        res.status(200).send({ message: "You've been signed out!" });
+    } catch (error) {
+        res.status(500).send({ message: error });
+    }
 }

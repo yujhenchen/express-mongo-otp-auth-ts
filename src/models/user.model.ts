@@ -1,11 +1,8 @@
-import IUser from "interfaces/models/user";
-import { Document, Model, Schema, model } from "mongoose";
+import { IUserDoc, IUserMethods, IUserModel } from "interfaces/models/user";
+import { Schema, model } from "mongoose";
+import generateJWTToken from "utils/authHelper";
 
-interface IUserDoc extends IUser, Document { };
-
-interface IUserModel extends Model<IUserDoc> { };
-
-const UserSchema = new Schema<IUserDoc, IUserModel>({
+const uerSchema = new Schema<IUserDoc, IUserModel, IUserMethods>({
     name: {
         type: String,
         required: true,
@@ -43,7 +40,31 @@ const UserSchema = new Schema<IUserDoc, IUserModel>({
     }
 });
 
+uerSchema.methods.generateToken = async function (): Promise<string> {
+    try {
+        /**
+         * the data type of this is: 
+         * Document<unknown, {}, FlatRecord<IUserDoc>> & Omit<FlatRecord<IUserDoc> & Required<{ _id: unknown; }>, keyof IUserMethods> & IUserMethods
+         */
+        const token = await generateJWTToken({ name: this.name });
+        this.token = token;
+        await this.save();
+        return token;
+    } catch (error) {
+        console.error(error);
+        return '';
+    }
+}
 
-const User = model<IUserDoc, IUserModel>('users', UserSchema, 'users');
+uerSchema.methods.deleteToken = async function (): Promise<void> {
+    try {
+        this.token = '';
+        await this.save();
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+const User = model<IUserDoc, IUserModel>('users', uerSchema, 'users');
 
 export default User;
