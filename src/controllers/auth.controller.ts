@@ -20,13 +20,13 @@ export async function signUp(req: Request, res: Response): Promise<void> {
 export async function signIn(req: Request, res: Response): Promise<void> {
     try {
         const { name, password } = req.body;
-        const foundUser = await findOneUser(name);
-        if (!foundUser) {
+        const user = await findOneUser(name);
+        if (!user) {
             res.status(404).send({ message: `User Not found. User name: ${name}` });
             return;
         }
 
-        const isPasswordValid = bcrypt.compareSync(password, foundUser.password);
+        const isPasswordValid = bcrypt.compareSync(password, user.password);
         if (!isPasswordValid) {
             res.status(401).send({
                 message: "Invalid Password!",
@@ -34,16 +34,16 @@ export async function signIn(req: Request, res: Response): Promise<void> {
             return;
         }
 
-        const token = await foundUser.generateToken();
+        const token = await user.generateToken();
         if (!token) {
             res.status(500).send({ message: 'Failed to generate token' });
             return;
         }
 
         res.status(200).send({
-            name: foundUser.name,
-            email: foundUser.email,
-            // role: foundUser.role,
+            name: user.name,
+            email: user.email,
+            // role: user.role,
             token
         });
     } catch (error) {
