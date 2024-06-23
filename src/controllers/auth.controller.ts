@@ -5,16 +5,26 @@ import bcrypt from 'bcrypt';
 
 
 export async function signUp(req: Request, res: Response): Promise<void> {
+    try {
+        const { name } = req.body;
+        const user = await findOneUser(name);
+        if (user) {
+            res.status(409).send({ message: `User already exists: ${name}` });
+            return;
+        }
 
-    const doc = await insertUser(req.body);
-    if (!doc) {
-        res.status(500).send({ message: 'User registered Failed' });
-        return;
+        const newUser = await insertUser(req.body);
+        if (!newUser) {
+            res.status(500).send({ message: 'User registered Failed' });
+            return;
+        }
+
+        req.body = newUser.toJSON();
+        res.status(200).send({ message: "User registered successfully!" });
+    } catch (error) {
+        res.status(500).send({ message: error });
     }
 
-    const user = doc.toObject();
-    req.body = user;
-    res.status(200).send({ message: "User registered successfully!" });
 }
 
 export async function signIn(req: Request, res: Response): Promise<void> {
