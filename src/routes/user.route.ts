@@ -3,7 +3,7 @@ import { Router } from "express";
 
 const userRoutes = Router();
 
-userRoutes.get('/', getUser);
+userRoutes.get('/:userId', getUser);
 
 userRoutes.patch('/:userId', updateUser);
 

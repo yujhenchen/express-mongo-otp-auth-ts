@@ -29,10 +29,10 @@ export async function createUser(user: IUser) {
 export async function getUser(req: Request<{ userId: string }>, res: Response) {
     try {
         const {
-            params: { userId },
-        } = req;
+            userId
+        } = req.params;
 
-        const user = await User.findOne({ _id: userId }).exec();
+        const user = await User.findById(userId).exec();
 
         if (user) res.status(status.OK).json({ status: true, data: user.toJSON() });
         else res.status(status.NOT_FOUND).json({ status: false, message: 'Cannot find the user' });
