@@ -1,5 +1,5 @@
 // import { APIRequest, APIResponse } from 'interfaces/express';
-import { insertUser } from './user.controller';
+import { createUser } from './user.controller';
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import status from 'http-status';
@@ -14,7 +14,7 @@ export async function signUp(req: Request, res: Response): Promise<void> {
             return;
         }
 
-        const newUser = await insertUser(req.body);
+        const newUser = await createUser(req.body);
         if (!newUser) {
             res.status(status.INTERNAL_SERVER_ERROR).send({ message: 'User registered Failed' });
             return;
