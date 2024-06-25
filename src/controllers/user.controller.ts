@@ -31,7 +31,9 @@ export async function getUser(req: Request, res: Response) {
         const {
             user: { userId },
         } = req;
+
         const user = await User.findOne({ _id: userId }).exec();
+
         if (user) res.status(status.OK).json({ status: true, data: user.toJSON() });
         else res.status(status.NOT_FOUND).json({ status: false, message: 'Cannot find the user' });
     } catch (error) {
