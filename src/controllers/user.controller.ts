@@ -1,6 +1,7 @@
 import Joi from 'joi';
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
+import status from 'http-status';
 import User from 'models/user.model';
 import { IUser } from 'interfaces/models/user';
 
@@ -27,41 +28,87 @@ export async function createUser(user: IUser) {
 
 export async function getUser(req: Request, res: Response) {
     try {
-        // get a user
+        const {
+            user: { userId },
+        } = req;
+        const user = await User.findOne({ _id: userId }).exec();
+        if (user) res.status(status.OK).json({ status: true, data: user.toJSON() });
+        else res.status(status.NOT_FOUND).json({ status: false, message: 'Cannot find the user' });
     } catch (error) {
         console.error(error);
+        res.status(status.INTERNAL_SERVER_ERROR).json({ message: error });
     }
 }
 
 export async function updateUser(req: Request, res: Response) {
     try {
-        // update user
+        const {
+            user: { userId },
+            body: payload,
+        } = req;
+
+        if (!Object.keys(payload).length) {
+            res.status(status.BAD_REQUEST).json({ status: false, message: 'Request cannot be empty' });
+            return;
+        }
+
+        const user = await User.findById(userId);
+        if (!user) {
+            res.status(status.NOT_FOUND).json({ status: false, message: 'Cannot find the user' });
+            return;
+        }
+
+        Object.assign(user, payload);
+        await user.save();
+        res.status(status.OK).json({ status: true, data: user.toJSON() });
     } catch (error) {
         console.error(error);
+        res.status(status.INTERNAL_SERVER_ERROR).json({ message: error });
     }
 }
 
 export async function getAllUsers(req: Request, res: Response) {
     try {
-        // get all users
+        const users = await User.find({});
+        res.status(status.OK).json({ status: true, data: users });
     } catch (error) {
         console.error(error);
-        return [];
+        res.status(status.INTERNAL_SERVER_ERROR).json({ message: error });
     }
 }
 
 export async function changeRole(req: Request, res: Response) {
     try {
-        // change user role
+        // const {
+        //     params: { userId },
+        //     body: { role },
+        // } = req;
+
+        // const user = await User.findById(userId);
+        // if (!user) {
+        //     res.status(status.NOT_FOUND).json({ status: false, message: 'Cannot find the user' });
+        //     return;
+        // }
+
+        // user.role = role;
+        // await user.save();
+        // res.status(status.OK).json({ status: true, data: user.toJSON() });
     } catch (error) {
         console.error(error);
+        res.status(status.INTERNAL_SERVER_ERROR).json({ message: error });
     }
 }
 
 export async function deleteUser(req: Request, res: Response) {
     try {
-        // delete user
+        const {
+            params: { userId },
+        } = req;
+
+        await User.deleteOne({ _id: userId });
+        res.status(status.OK).json({ status: true, message: 'Successfully deleted the user' });
     } catch (error) {
         console.error(error);
+        res.status(status.INTERNAL_SERVER_ERROR).json({ message: error });
     }
 }
