@@ -76,6 +76,7 @@ export async function updateUser(
     }
 }
 
+// TODO: need to fix this get error
 export async function getAllUsers(req: Request, res: Response) {
     try {
         const users = await User.find({});
@@ -86,6 +87,7 @@ export async function getAllUsers(req: Request, res: Response) {
     }
 }
 
+// TODO: need to fix Request type of this one, and test
 export async function changeRole(req: Request<{ userId: string }>, res: Response) {
     try {
         const {
