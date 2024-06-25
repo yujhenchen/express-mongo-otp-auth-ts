@@ -10,20 +10,20 @@ export async function signUp(req: Request, res: Response): Promise<void> {
         const { name } = req.body;
         const user = await User.findOne({ name }).exec();
         if (user) {
-            res.status(status.CONFLICT).send({ message: `User already exists: ${name}` });
+            res.status(status.CONFLICT).json({ message: `User already exists: ${name}` });
             return;
         }
 
         const newUser = await createUser(req.body);
         if (!newUser) {
-            res.status(status.INTERNAL_SERVER_ERROR).send({ message: 'User registered Failed' });
+            res.status(status.INTERNAL_SERVER_ERROR).json({ message: 'User registered Failed' });
             return;
         }
 
         req.body = newUser.toJSON();
-        res.status(status.OK).send({ message: "User registered successfully!" });
+        res.status(status.OK).json({ message: "User registered successfully!" });
     } catch (error) {
-        res.status(status.INTERNAL_SERVER_ERROR).send({ message: error });
+        res.status(status.INTERNAL_SERVER_ERROR).json({ message: error });
     }
 
 }
@@ -33,13 +33,13 @@ export async function signIn(req: Request, res: Response): Promise<void> {
         const { name, password } = req.body;
         const user = await User.findOne({ name }).exec();
         if (!user) {
-            res.status(status.NOT_FOUND).send({ message: `User Not found. User name: ${name}` });
+            res.status(status.NOT_FOUND).json({ message: `User Not found. User name: ${name}` });
             return;
         }
 
         const isPasswordValid = bcrypt.compareSync(password, user.password);
         if (!isPasswordValid) {
-            res.status(status.UNAUTHORIZED).send({
+            res.status(status.UNAUTHORIZED).json({
                 message: "Invalid Password!",
             });
             return;
@@ -47,18 +47,18 @@ export async function signIn(req: Request, res: Response): Promise<void> {
 
         const token = await user.generateToken();
         if (!token) {
-            res.status(status.INTERNAL_SERVER_ERROR).send({ message: 'Failed to generate token' });
+            res.status(status.INTERNAL_SERVER_ERROR).json({ message: 'Failed to generate token' });
             return;
         }
 
-        res.status(status.OK).send({
+        res.status(status.OK).json({
             name: user.name,
             email: user.email,
             // role: user.role,
             token
         });
     } catch (error) {
-        res.status(status.INTERNAL_SERVER_ERROR).send({ message: error });
+        res.status(status.INTERNAL_SERVER_ERROR).json({ message: error });
     }
 }
 
@@ -68,13 +68,13 @@ export async function signOut(req: Request, res: Response): Promise<void> {
         const { name, password } = req.body;
         const user = await User.findOne({ name }).exec();
         if (!user) {
-            res.status(status.NOT_FOUND).send({ message: `User Not found. User name: ${name}` });
+            res.status(status.NOT_FOUND).json({ message: `User Not found. User name: ${name}` });
             return;
         }
 
         const isPasswordValid = bcrypt.compareSync(password, user.password);
         if (!isPasswordValid) {
-            res.status(status.UNAUTHORIZED).send({
+            res.status(status.UNAUTHORIZED).json({
                 message: "Invalid Password!",
             });
             return;
@@ -82,8 +82,8 @@ export async function signOut(req: Request, res: Response): Promise<void> {
 
         await user.deleteToken();
 
-        res.status(status.OK).send({ message: "You've been signed out!" });
+        res.status(status.OK).json({ message: "You've been signed out!" });
     } catch (error) {
-        res.status(status.INTERNAL_SERVER_ERROR).send({ message: error });
+        res.status(status.INTERNAL_SERVER_ERROR).json({ message: error });
     }
 }
