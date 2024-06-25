@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction, Router } from "express";
+import status from 'http-status';
 import authRoutes from "./auth.route";
 import userRoutes from "./user.route";
 
@@ -15,8 +16,8 @@ router.use(timeLog);
 router.use('/auth', authRoutes);
 router.use('/user', userRoutes);
 
-router.get('/', (req, res) => {
-    res.send('Hello World!')
+router.get('/', (req: Request, res: Response) => {
+    res.status(status.OK).json({ message: 'Hello World!' })
 });
 
 export default router;
