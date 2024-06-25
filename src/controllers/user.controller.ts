@@ -79,20 +79,20 @@ export async function getAllUsers(req: Request, res: Response) {
 
 export async function changeRole(req: Request, res: Response) {
     try {
-        // const {
-        //     params: { userId },
-        //     body: { role },
-        // } = req;
+        const {
+            params: { userId },
+            body: { role },
+        } = req;
 
-        // const user = await User.findById(userId);
-        // if (!user) {
-        //     res.status(status.NOT_FOUND).json({ status: false, message: 'Cannot find the user' });
-        //     return;
-        // }
+        const user = await User.findById(userId);
+        if (!user) {
+            res.status(status.NOT_FOUND).json({ status: false, message: 'Cannot find the user' });
+            return;
+        }
 
-        // user.role = role;
-        // await user.save();
-        // res.status(status.OK).json({ status: true, data: user.toJSON() });
+        user.role = role;
+        await user.save();
+        res.status(status.OK).json({ status: true, data: user.toJSON() });
     } catch (error) {
         console.error(error);
         res.status(status.INTERNAL_SERVER_ERROR).json({ message: error });

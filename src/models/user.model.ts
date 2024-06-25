@@ -23,13 +23,14 @@ const uerSchema = new Schema<IUserDoc, IUserModel, IUserMethods>({
         type: String,
         required: true,
     },
-    // role: {
-    //     type: String,
-    //     enum: {
-    //         values: ['admin', 'visitor'],
-    //         message: '{ROLE} does not exist',
-    //     },
-    // },
+    role: {
+        type: String,
+        enum: {
+            values: ['admin', 'visitor'],
+            message: '{ROLE} does not exist',
+        },
+        default: 'visitor'
+    },
     token: {
         type: String,
         default: ''
