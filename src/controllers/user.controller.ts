@@ -26,10 +26,10 @@ export async function createUser(user: IUser) {
     }
 }
 
-export async function getUser(req: Request, res: Response) {
+export async function getUser(req: Request<{ userId: string }>, res: Response) {
     try {
         const {
-            user: { userId },
+            params: { userId },
         } = req;
 
         const user = await User.findOne({ _id: userId }).exec();
@@ -42,12 +42,13 @@ export async function getUser(req: Request, res: Response) {
     }
 }
 
-export async function updateUser(req: Request, res: Response) {
+export async function updateUser(req: Request<{ userId: string }>, res: Response) {
     try {
         const {
-            user: { userId },
-            body: payload,
+            params: { userId },
         } = req;
+
+        const { payload } = req.body;
 
         if (!Object.keys(payload).length) {
             res.status(status.BAD_REQUEST).json({ status: false, message: 'Request cannot be empty' });
@@ -79,12 +80,13 @@ export async function getAllUsers(req: Request, res: Response) {
     }
 }
 
-export async function changeRole(req: Request, res: Response) {
+export async function changeRole(req: Request<{ userId: string }>, res: Response) {
     try {
         const {
             params: { userId },
-            body: { role },
         } = req;
+
+        const { role } = req.body;
 
         const user = await User.findById(userId);
         if (!user) {
@@ -101,7 +103,7 @@ export async function changeRole(req: Request, res: Response) {
     }
 }
 
-export async function deleteUser(req: Request, res: Response) {
+export async function deleteUser(req: Request<{ userId: string }>, res: Response) {
     try {
         const {
             params: { userId },
