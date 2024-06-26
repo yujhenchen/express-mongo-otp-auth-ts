@@ -42,21 +42,17 @@ export async function getUser(req: Request<{ userId: string }>, res: Response) {
     }
 }
 
-// TODO: need to fix this one
 export async function updateUser(
-    req: Request<{ userId: string }, any, any, { payload: Omit<IUser, "token" | "createdAt"> }, any>,
+    req: Request<{ userId: string }, any, { payload: Omit<IUser, "token" | "createdAt"> }, any>,
     res: Response) {
     try {
         const {
             params: { userId },
         } = req;
 
-        const { payload } = req.body;
+        const payload = req.body;
 
-        // console.log(JSON.stringify(req.params))
-        // console.log(JSON.stringify(req.body))
-
-        if (!Object.keys(payload).length) {
+        if (!payload || !Object.keys(payload).length) {
             res.status(status.BAD_REQUEST).json({ status: false, message: 'Request cannot be empty' });
             return;
         }
@@ -87,8 +83,7 @@ export async function getAllUsers(req: Request, res: Response) {
     }
 }
 
-// TODO: need to fix Request type of this one, and test
-export async function changeRole(req: Request<{ userId: string }>, res: Response) {
+export async function changeRole(req: Request<{ userId: string }, any, Pick<IUser, 'role'>, any>, res: Response) {
     try {
         const {
             params: { userId },
