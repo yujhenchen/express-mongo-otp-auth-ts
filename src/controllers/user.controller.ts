@@ -1,19 +1,10 @@
-import Joi from 'joi';
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import status from 'http-status';
 import User from 'models/user.model';
-import { IUser } from 'interfaces/models/user';
+import { IUser } from 'interfaces/user';
 
 const saltOrRounds = 10;
-
-const userSchema = Joi.object({
-    name: Joi.string().required(),
-    email: Joi.string().required(),
-    // mobileNumber: Joi.string().regex(/^[1-9][0-9]{9}$/),
-    password: Joi.string().required(),
-    repeatPassword: Joi.string().required().valid(Joi.ref('password'))
-});
 
 function handleErrorResponse(error: unknown, res: Response): void {
     console.error(error);
@@ -28,7 +19,6 @@ function handleErrorResponse(error: unknown, res: Response): void {
 
 export async function createUser(user: IUser) {
     try {
-        user = await userSchema.validateAsync(user, { abortEarly: false });
         user.password = bcrypt.hashSync(user.password, saltOrRounds);
         return await new User(user).save();
     } catch (error) {
