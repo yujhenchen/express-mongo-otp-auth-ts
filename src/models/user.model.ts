@@ -1,5 +1,5 @@
 import { UserRole } from "constants/userRoles";
-import { IUserDoc, IUserMethods, IUserModel } from "interfaces/models/user";
+import { IUserDoc, IUserMethods, IUserModel } from "interfaces/user";
 import { Schema, model } from "mongoose";
 import generateJWTToken from "utils/authHelper";
 
