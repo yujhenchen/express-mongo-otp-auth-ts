@@ -7,6 +7,10 @@ import { IUser } from 'interfaces/models/user';
 
 const saltOrRounds = 10;
 
+// TODO:
+// each method should add Joi verification
+// fix any
+
 const userSchema = Joi.object({
     name: Joi.string().required(),
     email: Joi.string().required(),
@@ -43,7 +47,7 @@ export async function getUser(req: Request<{ userId: string }>, res: Response) {
 }
 
 export async function updateUser(
-    req: Request<{ userId: string }, any, { payload: Omit<IUser, "token" | "createdAt"> }, any>,
+    req: Request<{ userId: string }, Record<string, never>, { payload: Omit<IUser, "token" | "createdAt"> }, Record<string, never>>,
     res: Response) {
     try {
         const {
@@ -83,7 +87,7 @@ export async function getAllUsers(req: Request, res: Response) {
     }
 }
 
-export async function changeRole(req: Request<{ userId: string }, any, Pick<IUser, 'role'>, any>, res: Response) {
+export async function changeRole(req: Request<{ userId: string }, Record<string, never>, Pick<IUser, 'role'>, Record<string, never>>, res: Response) {
     try {
         const {
             params: { userId },
