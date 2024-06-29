@@ -1,4 +1,3 @@
-// import { APIRequest, APIResponse } from 'interfaces/express';
 import { createUser } from './user.controller';
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';

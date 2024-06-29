@@ -1,7 +1,8 @@
 import { UserRole } from "constants/userRoles";
 import { IUserDoc, IUserMethods, IUserModel } from "interfaces/user";
 import { Schema, model } from "mongoose";
-import generateJWTToken from "utils/authHelper";
+import jwt from 'jsonwebtoken';
+import config from "config/config";
 
 const uerSchema = new Schema<IUserDoc, IUserModel, IUserMethods>({
     name: {
@@ -48,7 +49,7 @@ uerSchema.methods.generateToken = async function (): Promise<string> {
          * the data type of this is: 
          * Document<unknown, {}, FlatRecord<IUserDoc>> & Omit<FlatRecord<IUserDoc> & Required<{ _id: unknown; }>, keyof IUserMethods> & IUserMethods
          */
-        const token = await generateJWTToken({ name: this.name });
+        const token = jwt.sign({ name: this.name }, config.jwtSecret, { expiresIn: 86400 });
         this.token = token;
         await this.save();
         return token;
