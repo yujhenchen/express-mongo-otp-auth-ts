@@ -7,10 +7,6 @@ import { IUser } from 'interfaces/models/user';
 
 const saltOrRounds = 10;
 
-// TODO:
-// each method should add Joi verification
-// fix any
-
 const userSchema = Joi.object({
     name: Joi.string().required(),
     email: Joi.string().required(),
@@ -115,6 +111,12 @@ export async function deleteUser(req: Request<{ userId: string }>, res: Response
         const {
             params: { userId },
         } = req;
+
+        const user = await User.findById(userId);
+        if (!user) {
+            res.status(status.NOT_FOUND).json({ status: false, message: 'Cannot find the user' });
+            return;
+        }
 
         await User.deleteOne({ _id: userId });
         res.status(status.OK).json({ status: true, message: 'Successfully deleted the user' });
