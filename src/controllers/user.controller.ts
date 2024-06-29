@@ -57,17 +57,14 @@ export async function updateUser(
             return;
         }
 
-        const user = await User.findById(userId);
-        if (!user) {
-            res.status(status.NOT_FOUND).json({ status: false, message: 'Cannot find the user' });
-            return;
-        }
+        const user = await User.findByIdAndUpdate(userId, payload);
 
-        Object.assign(user, payload);
-        await user.save();
-        res.status(status.OK).json({ status: true, data: user.toJSON() });
+        // TODO: implement toJSON method to get only necessary user data from the user doc
+        if (user) res.status(status.OK).json({ status: true, message: 'Successfully updated the user' });
+        else res.status(status.NOT_FOUND).json({ status: true, message: 'Failed to update the user, cannot find the user' });
     } catch (error) {
         console.error(error);
+        // TODO: process error to get message and send to response
         res.status(status.INTERNAL_SERVER_ERROR).json({ message: error });
     }
 }
@@ -91,17 +88,14 @@ export async function changeRole(req: Request<{ userId: string }, Record<string,
 
         const { role } = req.body;
 
-        const user = await User.findById(userId);
-        if (!user) {
-            res.status(status.NOT_FOUND).json({ status: false, message: 'Cannot find the user' });
-            return;
-        }
+        const user = await User.findByIdAndUpdate(userId, { role });
 
-        user.role = role;
-        await user.save();
-        res.status(status.OK).json({ status: true, data: user.toJSON() });
+        // TODO: implement toJSON method to get only necessary user data from the user doc
+        if (user) res.status(status.OK).json({ status: true, message: 'Successfully updated the user' });
+        else res.status(status.NOT_FOUND).json({ status: true, message: 'Failed to update the user, cannot find the user' });
     } catch (error) {
         console.error(error);
+        // TODO: process error to get message and send to response
         res.status(status.INTERNAL_SERVER_ERROR).json({ message: error });
     }
 }
@@ -112,16 +106,14 @@ export async function deleteUser(req: Request<{ userId: string }>, res: Response
             params: { userId },
         } = req;
 
-        const user = await User.findById(userId);
-        if (!user) {
-            res.status(status.NOT_FOUND).json({ status: false, message: 'Cannot find the user' });
-            return;
-        }
+        const user = await User.findByIdAndDelete(userId);
 
-        await User.deleteOne({ _id: userId });
-        res.status(status.OK).json({ status: true, message: 'Successfully deleted the user' });
+        // TODO: implement toJSON method to get only necessary user data from the user doc
+        if (user) res.status(status.OK).json({ status: true, message: 'Successfully deleted the user' });
+        else res.status(status.NOT_FOUND).json({ status: true, message: 'Failed to delete the user, cannot find the user' });
     } catch (error) {
         console.error(error);
+        // TODO: process error to get message and send to response
         res.status(status.INTERNAL_SERVER_ERROR).json({ message: error });
     }
 }
