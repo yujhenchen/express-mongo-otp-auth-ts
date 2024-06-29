@@ -1,5 +1,7 @@
 import { changeRole, deleteUser, getAllUsers, getUser, updateUser } from "controllers/user.controller";
 import { Router } from "express";
+import validateRequest from "middleware/validateRequest ";
+import { changeRoleSchema, updateUserSchema } from "middleware/validators";
 
 const userRoutes = Router();
 
@@ -12,9 +14,9 @@ userRoutes.get('/all', getAllUsers);
 
 userRoutes.get('/:userId', getUser);
 
-userRoutes.patch('/:userId', updateUser);
+userRoutes.patch('/:userId', validateRequest(updateUserSchema), updateUser);
 
-userRoutes.patch('/change-role/:userId', changeRole);
+userRoutes.patch('/change-role/:userId', validateRequest(changeRoleSchema), changeRole);
 
 userRoutes.delete('/:userId', deleteUser);
 

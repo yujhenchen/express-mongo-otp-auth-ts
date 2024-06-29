@@ -1,11 +1,13 @@
 import { signIn, signOut, signUp } from "controllers/auth.controller";
 import { Router } from 'express';
+import validateRequest from "middleware/validateRequest ";
+import { signinSchema, signupSchema } from "middleware/validators";
 
 const authRoutes = Router();
 
-authRoutes.post('/signup', signUp);
+authRoutes.post('/signup', validateRequest(signupSchema), signUp);
 
-authRoutes.post('/signin', signIn);
+authRoutes.post('/signin', validateRequest(signinSchema), signIn);
 
 authRoutes.post('/signout', signOut);
 
