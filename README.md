@@ -1,6 +1,14 @@
 ## Issues and solutions
 
-### Get error
+### Get error `Error: Method no longer accepts array arguments: valid`
+The full error message:
+````
+node_modules\@hapi\hoek\lib\error.js:23
+            Error.captureStackTrace(this, exports.assert);
+                  ^
+Error: Method no longer accepts array arguments: valid
+````
+
 When passing the array `Object.values(UserRole)` into `Joi.string().valid()`
 ````
 export const UserRole = {
