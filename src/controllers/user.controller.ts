@@ -15,6 +15,17 @@ const userSchema = Joi.object({
     repeatPassword: Joi.string().required().valid(Joi.ref('password'))
 });
 
+function handleErrorResponse(error: unknown, res: Response): void {
+    console.error(error);
+
+    if (error instanceof Error) {
+        res.status(status.INTERNAL_SERVER_ERROR).json({ message: error.message || 'Internal Server Error' });
+    }
+    else {
+        res.status(status.INTERNAL_SERVER_ERROR).json({ message: 'Unknown error occurred' });
+    }
+}
+
 export async function createUser(user: IUser) {
     try {
         user = await userSchema.validateAsync(user, { abortEarly: false });
@@ -37,8 +48,7 @@ export async function getUser(req: Request<{ userId: string }>, res: Response) {
         if (user) res.status(status.OK).json({ status: true, data: user.toJSON() });
         else res.status(status.NOT_FOUND).json({ status: false, message: 'Cannot find the user' });
     } catch (error) {
-        console.error(error);
-        res.status(status.INTERNAL_SERVER_ERROR).json({ message: error });
+        handleErrorResponse(error, res);
     }
 }
 
@@ -63,20 +73,16 @@ export async function updateUser(
         if (user) res.status(status.OK).json({ status: true, message: 'Successfully updated the user' });
         else res.status(status.NOT_FOUND).json({ status: true, message: 'Failed to update the user, cannot find the user' });
     } catch (error) {
-        console.error(error);
-        // TODO: process error to get message and send to response
-        res.status(status.INTERNAL_SERVER_ERROR).json({ message: error });
+        handleErrorResponse(error, res);
     }
 }
 
-// TODO: need to fix this get error
 export async function getAllUsers(req: Request, res: Response) {
     try {
         const users = await User.find({});
         res.status(status.OK).json({ status: true, data: users });
     } catch (error) {
-        console.error(error);
-        res.status(status.INTERNAL_SERVER_ERROR).json({ message: error });
+        handleErrorResponse(error, res);
     }
 }
 
@@ -94,9 +100,7 @@ export async function changeRole(req: Request<{ userId: string }, Record<string,
         if (user) res.status(status.OK).json({ status: true, message: 'Successfully updated the user' });
         else res.status(status.NOT_FOUND).json({ status: true, message: 'Failed to update the user, cannot find the user' });
     } catch (error) {
-        console.error(error);
-        // TODO: process error to get message and send to response
-        res.status(status.INTERNAL_SERVER_ERROR).json({ message: error });
+        handleErrorResponse(error, res);
     }
 }
 
@@ -112,8 +116,6 @@ export async function deleteUser(req: Request<{ userId: string }>, res: Response
         if (user) res.status(status.OK).json({ status: true, message: 'Successfully deleted the user' });
         else res.status(status.NOT_FOUND).json({ status: true, message: 'Failed to delete the user, cannot find the user' });
     } catch (error) {
-        console.error(error);
-        // TODO: process error to get message and send to response
-        res.status(status.INTERNAL_SERVER_ERROR).json({ message: error });
+        handleErrorResponse(error, res);
     }
 }
