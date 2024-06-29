@@ -2,12 +2,12 @@ import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import status from 'http-status';
 import User from 'models/user.model';
-import { IUser } from 'interfaces/user';
+import { IUser, IUserSignUp, IUserUpdate } from 'interfaces/user';
 import handleErrorResponse from 'utils/controller.helper';
 
 const saltOrRounds = 10;
 
-export async function createUser(user: IUser) {
+export async function createUser(user: IUserSignUp) {
     try {
         user.password = bcrypt.hashSync(user.password, saltOrRounds);
         return await new User(user).save();
@@ -33,7 +33,7 @@ export async function getUser(req: Request<{ userId: string }>, res: Response) {
 }
 
 export async function updateUser(
-    req: Request<{ userId: string }, Record<string, never>, { payload: Omit<IUser, "token" | "createdAt"> }, Record<string, never>>,
+    req: Request<{ userId: string }, Record<string, never>, { payload: IUserUpdate }, Record<string, never>>,
     res: Response) {
     try {
         const {

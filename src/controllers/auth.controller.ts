@@ -4,10 +4,15 @@ import bcrypt from 'bcrypt';
 import status from 'http-status';
 import User from 'models/user.model';
 import handleErrorResponse from 'utils/controller.helper';
+import { IUserSignIn, IUserSignUp } from 'interfaces/user';
 
-export async function signUp(req: Request, res: Response): Promise<void> {
+export async function signUp(
+    req: Request<Record<string, never>, Record<string, never>, IUserSignUp, Record<string, never>>,
+    res: Response): Promise<void> {
     try {
-        const { name } = req.body;
+        const payload = req.body;
+        const { name } = payload;
+
         const user = await User.findOne({ name }).exec();
         if (user) {
             res.status(status.CONFLICT).json({ message: `User already exists: ${name}` });
@@ -20,7 +25,7 @@ export async function signUp(req: Request, res: Response): Promise<void> {
             return;
         }
 
-        req.body = newUser.toJSON();
+        // TODO: implement toJSON method to get only necessary user data from the user doc
         res.status(status.OK).json({ message: "User registered successfully!" });
     } catch (error) {
         handleErrorResponse(error, res);
@@ -28,12 +33,14 @@ export async function signUp(req: Request, res: Response): Promise<void> {
 
 }
 
-export async function signIn(req: Request, res: Response): Promise<void> {
+export async function signIn(
+    req: Request<Record<string, never>, Record<string, never>, IUserSignIn, Record<string, never>>,
+    res: Response): Promise<void> {
     try {
-        const { name, password } = req.body;
-        const user = await User.findOne({ name }).exec();
+        const { email, password } = req.body;
+        const user = await User.findOne({ email }).exec();
         if (!user) {
-            res.status(status.NOT_FOUND).json({ message: `User Not found. User name: ${name}` });
+            res.status(status.NOT_FOUND).json({ message: `User Not found. User email: ${email}` });
             return;
         }
 
@@ -51,6 +58,7 @@ export async function signIn(req: Request, res: Response): Promise<void> {
             return;
         }
 
+        // TODO: implement toJSON method to get only necessary user data from the user doc
         res.status(status.OK).json({
             name: user.name,
             email: user.email,
