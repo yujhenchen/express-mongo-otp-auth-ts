@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import status from 'http-status';
 import User from 'models/user.model';
+import handleErrorResponse from 'utils/controller.helper';
 
 export async function signUp(req: Request, res: Response): Promise<void> {
     try {
@@ -22,7 +23,7 @@ export async function signUp(req: Request, res: Response): Promise<void> {
         req.body = newUser.toJSON();
         res.status(status.OK).json({ message: "User registered successfully!" });
     } catch (error) {
-        res.status(status.INTERNAL_SERVER_ERROR).json({ message: error });
+        handleErrorResponse(error, res);
     }
 
 }
@@ -57,7 +58,7 @@ export async function signIn(req: Request, res: Response): Promise<void> {
             token
         });
     } catch (error) {
-        res.status(status.INTERNAL_SERVER_ERROR).json({ message: error });
+        handleErrorResponse(error, res);
     }
 }
 
@@ -83,6 +84,6 @@ export async function signOut(req: Request, res: Response): Promise<void> {
 
         res.status(status.OK).json({ message: "You've been signed out!" });
     } catch (error) {
-        res.status(status.INTERNAL_SERVER_ERROR).json({ message: error });
+        handleErrorResponse(error, res);
     }
 }
