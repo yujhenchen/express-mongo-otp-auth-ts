@@ -1,3 +1,4 @@
+import { TUserRole } from "constants/userRoles";
 import { Document, Model } from "mongoose";
 
 export interface Tokens {
@@ -10,7 +11,7 @@ export interface IUser {
     name: string;
     email: string;
     password: string;
-    role: 'admin' | 'visitor';
+    role: TUserRole;
     token: string;
     createdAt: Date;
 }
@@ -18,8 +19,6 @@ export interface IUser {
 export interface IUserDoc extends IUser, Document { };
 
 export interface IUserMethods {
-    // generateAuthToken(): Promise<string>;
-    // toJSON(): IUser;
     generateToken(): Promise<string>;
     deleteToken(): Promise<void>;
 }

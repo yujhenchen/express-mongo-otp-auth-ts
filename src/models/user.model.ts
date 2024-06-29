@@ -1,3 +1,4 @@
+import { UserRole } from "constants/userRoles";
 import { IUserDoc, IUserMethods, IUserModel } from "interfaces/models/user";
 import { Schema, model } from "mongoose";
 import generateJWTToken from "utils/authHelper";
@@ -26,10 +27,10 @@ const uerSchema = new Schema<IUserDoc, IUserModel, IUserMethods>({
     role: {
         type: String,
         enum: {
-            values: ['admin', 'visitor'],
+            values: Object.values(UserRole),
             message: '{ROLE} does not exist',
         },
-        default: 'visitor'
+        default: UserRole.visitor
     },
     token: {
         type: String,
