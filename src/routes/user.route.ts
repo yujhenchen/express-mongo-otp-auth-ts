@@ -1,6 +1,6 @@
 import { changeRole, deleteUser, getAllUsers, getUser, updateUser } from "controllers/user.controller";
 import { Router } from "express";
-import validateRequest from "middleware/validateRequest ";
+import validateRequest from "middleware/validate.middleware ";
 import { changeRoleSchema, updateUserSchema } from "middleware/validators";
 
 const userRoutes = Router();
