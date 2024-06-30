@@ -31,5 +31,5 @@ export const updateUserSchema = Joi.object({
 });
 
 export const changeRoleSchema = Joi.object({
-    role: Joi.string().valid(...Object.values(UserRole)),
-});
+    role: Joi.string().valid(...Object.values(UserRole)).required()
+}).unknown(false);

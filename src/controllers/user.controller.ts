@@ -66,11 +66,11 @@ export async function getAllUsers(req: Request, res: Response) {
     }
 }
 
-export async function changeRole(req: Request<{ userId: string }, Record<string, never>, Pick<IUser, 'role'>, Record<string, never>>, res: Response) {
+export async function changeRole(
+    req: Request<{ userId: string }, Record<string, never>, Pick<IUser, 'role'>, Record<string, never>>,
+    res: Response) {
     try {
-        const {
-            params: { userId },
-        } = req;
+        const { userId } = req.params;
 
         const { role } = req.body;
 
