@@ -24,8 +24,7 @@ export async function signUp(
             return;
         }
 
-        // TODO: implement toJSON method to get only necessary user data from the user doc
-        res.status(status.OK).json({ message: "User registered successfully!" });
+        res.status(status.OK).json(newUser.toJSON());
     } catch (error) {
         handleErrorResponse(error, res);
     }
@@ -57,13 +56,7 @@ export async function signIn(
             return;
         }
 
-        // TODO: implement toJSON method to get only necessary user data from the user doc
-        res.status(status.OK).json({
-            name: user.name,
-            email: user.email,
-            // role: user.role,
-            token
-        });
+        res.status(status.OK).json(user.toJSON());
     } catch (error) {
         handleErrorResponse(error, res);
     }

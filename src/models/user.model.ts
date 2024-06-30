@@ -68,6 +68,16 @@ uerSchema.methods.deleteToken = async function (): Promise<void> {
     }
 }
 
+uerSchema.methods.toJSON = function () {
+    try {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password, ...userObject } = this.toObject();
+        return userObject;
+    } catch (error) {
+        return null;
+    }
+}
+
 const User = model<IUserDoc, IUserModel>('users', uerSchema, 'users');
 
 export default User;

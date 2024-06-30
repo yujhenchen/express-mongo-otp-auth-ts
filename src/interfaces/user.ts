@@ -21,6 +21,7 @@ export interface IUserDoc extends IUser, Document { };
 export interface IUserMethods {
     generateToken(): Promise<string>;
     deleteToken(): Promise<void>;
+    toJSON(): Omit<IUser, 'password'> | null;
 }
 
 export interface IUserSignUp extends Omit<IUser, "token" | "createdAt"> { };

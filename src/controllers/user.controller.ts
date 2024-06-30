@@ -25,7 +25,7 @@ export async function getUser(req: Request<{ userId: string }>, res: Response) {
 
         const user = await User.findById(userId).exec();
 
-        if (user) res.status(status.OK).json({ data: user.toJSON() });
+        if (user) res.status(status.OK).json(user.toJSON());
         else res.status(status.NOT_FOUND).json({ message: 'Cannot find the user' });
     } catch (error) {
         handleErrorResponse(error, res);
@@ -49,8 +49,7 @@ export async function updateUser(
 
         const user = await User.findByIdAndUpdate(userId, payload);
 
-        // TODO: implement toJSON method to get only necessary user data from the user doc
-        if (user) res.status(status.OK).json({ message: 'Successfully updated the user' });
+        if (user) res.status(status.OK).json({ message: 'Update user successfully' });
         else res.status(status.NOT_FOUND).json({ message: 'Failed to update the user, cannot find the user' });
     } catch (error) {
         handleErrorResponse(error, res);
@@ -59,8 +58,9 @@ export async function updateUser(
 
 export async function getAllUsers(req: Request, res: Response) {
     try {
-        const users = await User.find({});
-        res.status(status.OK).json({ data: users });
+        const userDocs = await User.find({});
+        const users = await userDocs.map(userDoc => userDoc.toJSON());
+        res.status(status.OK).json(users);
     } catch (error) {
         handleErrorResponse(error, res);
     }
@@ -76,8 +76,7 @@ export async function changeRole(
 
         const user = await User.findByIdAndUpdate(userId, { role });
 
-        // TODO: implement toJSON method to get only necessary user data from the user doc
-        if (user) res.status(status.OK).json({ message: 'Successfully updated the user' });
+        if (user) res.status(status.OK).json({ message: 'Changed user role successfully' });
         else res.status(status.NOT_FOUND).json({ message: 'Failed to update the user, cannot find the user' });
     } catch (error) {
         handleErrorResponse(error, res);
@@ -92,7 +91,6 @@ export async function deleteUser(req: Request<{ userId: string }>, res: Response
 
         const user = await User.findByIdAndDelete(userId);
 
-        // TODO: implement toJSON method to get only necessary user data from the user doc
         if (user) res.status(status.OK).json({ message: 'Successfully deleted the user' });
         else res.status(status.NOT_FOUND).json({ message: 'Failed to delete the user, cannot find the user' });
     } catch (error) {
