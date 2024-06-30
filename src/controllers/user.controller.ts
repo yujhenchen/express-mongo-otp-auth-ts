@@ -33,7 +33,7 @@ export async function getUser(req: Request<{ userId: string }>, res: Response) {
 }
 
 export async function updateUser(
-    req: Request<{ userId: string }, Record<string, never>, { payload: IUserUpdate }, Record<string, never>>,
+    req: Request<{ userId: string }, Record<string, never>, IUserUpdate, Record<string, never>>,
     res: Response) {
     try {
         const {

@@ -27,6 +27,8 @@ export interface IUserSignUp extends Omit<IUser, "token" | "createdAt"> { };
 
 export interface IUserSignIn extends Omit<IUser, "name" | "role" | "token" | "createdAt"> { };
 
+export interface IUserSignOut extends Pick<IUser, "name" | "token"> { };
+
 export interface IUserUpdate extends Omit<IUser, "role" | "token" | "createdAt"> { };
 
 export interface IUserModel extends Model<IUserDoc, Record<string, never>, IUserMethods> { };

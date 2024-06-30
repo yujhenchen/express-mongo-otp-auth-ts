@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import status from 'http-status';
 import User from 'models/user.model';
 import handleErrorResponse from 'utils/controller.helper';
-import { IUserSignIn, IUserSignUp } from 'interfaces/user';
+import { IUserSignIn, IUserSignOut, IUserSignUp } from 'interfaces/user';
 
 export async function signUp(
     req: Request<Record<string, never>, Record<string, never>, IUserSignUp, Record<string, never>>,
@@ -70,7 +70,7 @@ export async function signIn(
 }
 
 export async function signOut(
-    req: Request<Record<string, never>, Record<string, never>, { name: string, token: string }, Record<string, never>>,
+    req: Request<Record<string, never>, Record<string, never>, IUserSignOut, Record<string, never>>,
     res: Response): Promise<void> {
 
     try {
