@@ -1,5 +1,6 @@
 import { changeRole, deleteUser, getAllUsers, getUser, updateUser } from "controllers/user.controller";
 import { Router } from "express";
+import validateToken from "middleware/rbac.middleware";
 import validateRequest from "middleware/validate.middleware ";
 import { changeRoleSchema, updateUserSchema } from "middleware/validators";
 
@@ -16,8 +17,8 @@ userRoutes.get('/:userId', getUser);
 
 userRoutes.patch('/:userId', validateRequest(updateUserSchema), updateUser);
 
-userRoutes.patch('/change-role/:userId', validateRequest(changeRoleSchema), changeRole);
+userRoutes.patch('/change-role/:userId', validateRequest(changeRoleSchema), validateToken, changeRole);
 
-userRoutes.delete('/:userId', deleteUser);
+userRoutes.delete('/:userId', validateToken, deleteUser);
 
 export default userRoutes;
