@@ -17,12 +17,17 @@ export const signinSchema = Joi.object({
     password: Joi.string().pattern(new RegExp(passwordRegex)).required()
 });
 
+export const signOutSchema = Joi.object({
+    name: Joi.string().min(3).max(30).required(),
+    token: Joi.string().required()
+});
+
 export const updateUserSchema = Joi.object({
     name: Joi.string().min(3).max(30),
     email: Joi.string().email(emailOptions),
     password: Joi.string().pattern(new RegExp(passwordRegex)),
-    role: Joi.string().valid(...Object.values(UserRole)),
-    token: Joi.string(),
+    // role: Joi.string().valid(...Object.values(UserRole)),
+    // token: Joi.string(),
 });
 
 export const changeRoleSchema = Joi.object({

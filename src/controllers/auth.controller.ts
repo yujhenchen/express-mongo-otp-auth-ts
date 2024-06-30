@@ -10,8 +10,7 @@ export async function signUp(
     req: Request<Record<string, never>, Record<string, never>, IUserSignUp, Record<string, never>>,
     res: Response): Promise<void> {
     try {
-        const payload = req.body;
-        const { name } = payload;
+        const { name } = req.body;
 
         const user = await User.findOne({ name }).exec();
         if (user) {
@@ -70,21 +69,15 @@ export async function signIn(
     }
 }
 
-export async function signOut(req: Request, res: Response): Promise<void> {
+export async function signOut(
+    req: Request<Record<string, never>, Record<string, never>, { name: string, token: string }, Record<string, never>>,
+    res: Response): Promise<void> {
 
     try {
-        const { name, password } = req.body;
+        const { name } = req.body;
         const user = await User.findOne({ name }).exec();
         if (!user) {
             res.status(status.NOT_FOUND).json({ message: `User Not found. User name: ${name}` });
-            return;
-        }
-
-        const isPasswordValid = bcrypt.compareSync(password, user.password);
-        if (!isPasswordValid) {
-            res.status(status.UNAUTHORIZED).json({
-                message: "Invalid Password!",
-            });
             return;
         }
 
