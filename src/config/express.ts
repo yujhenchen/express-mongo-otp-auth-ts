@@ -19,8 +19,7 @@ if (config.env === 'development') {
 
 app.use(express.json());
 
-// TODO: create a favicon.ico file and add into the project (aware the path should be /src/public/favicon.ico here)
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -31,9 +30,12 @@ app.use(helmet());
 // enable CORS - Cross Origin Resource Sharing
 app.use(cors());
 
-// app.use('/api/', routes);
-app.use('/', routes);
+app.use('/api/', routes);
 
+// serve static files
+const publicPath = path.join(__dirname, '../../public');
+app.use(express.static(publicPath));
+app.use(favicon(path.join(publicPath, 'favicon.ico')));
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => {
