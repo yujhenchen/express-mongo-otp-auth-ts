@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction, Router } from "express";
-import status from 'http-status';
 import authRoutes from "@routes/auth.route";
 import userRoutes from "@routes/user.route";
 
@@ -16,8 +15,9 @@ router.use(timeLog);
 router.use('/auth', authRoutes);
 router.use('/user', userRoutes);
 
-router.get('/', (req: Request, res: Response) => {
-    res.status(status.OK).json({ message: 'Hello World!' })
-});
+// replace this one with serve static files
+// router.get('/', (req: Request, res: Response) => {
+//     res.status(status.OK).json({ message: 'Hello World!' })
+// });
 
 export default router;
