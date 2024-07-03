@@ -6,8 +6,10 @@ import cors from 'cors';
 import createError from 'http-errors'
 import { Request, Response, NextFunction } from 'express';
 import status from 'http-status';
-import config from './config';
-import routes from '../routes/index.route';
+import favicon from 'serve-favicon';
+import config from '@config/config';
+import routes from '@routes/index.route';
+import path from 'path';
 
 const app = express();
 
@@ -16,6 +18,9 @@ if (config.env === 'development') {
 }
 
 app.use(express.json());
+
+// TODO: create a favicon.ico file and add into the project (aware the path should be /src/public/favicon.ico here)
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

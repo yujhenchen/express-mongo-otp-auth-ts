@@ -1,8 +1,8 @@
-import { UserRole } from "constants/userRoles";
-import { IUserDoc, IUserMethods, IUserModel } from "interfaces/user";
+import { UserRole } from "@constants/userRoles";
+import { IUserDoc, IUserMethods, IUserModel } from "@interfaces/user";
 import { Schema, model } from "mongoose";
 import jwt from 'jsonwebtoken';
-import config from "config/config";
+import config from "@config/config";
 
 const uerSchema = new Schema<IUserDoc, IUserModel, IUserMethods>({
     name: {

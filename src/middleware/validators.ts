@@ -1,4 +1,4 @@
-import { UserRole } from "constants/userRoles";
+import { UserRole } from "@constants/userRoles";
 import Joi, { EmailOptions } from "joi";
 
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+={}[\]:;<>,.?/~\\|-]).{8,16}$/;

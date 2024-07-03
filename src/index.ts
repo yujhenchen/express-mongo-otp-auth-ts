@@ -1,6 +1,6 @@
-import connectToDatabase from 'config/mongoose';
-import app from './config/express';
-import config from 'config/config';
+import connectToDatabase from '@config/mongoose';
+import app from '@config/express';
+import config from '@config/config';
 
 connectToDatabase(config.dbConnString).then(res => console.info(res));
 

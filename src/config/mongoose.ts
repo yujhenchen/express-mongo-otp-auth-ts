@@ -1,5 +1,5 @@
 import { connection, connect } from 'mongoose';
-import config from './config';
+import config from '@config/config';
 
 export default async function connectToDatabase(dbConnString: string) {
     const serverSelectionTimeoutMS = 60000;

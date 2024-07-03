@@ -1,4 +1,4 @@
-import { TUserRole } from "constants/userRoles";
+import { TUserRole } from "@constants/userRoles";
 import { Document, Model } from "mongoose";
 
 export interface Tokens {

@@ -1,8 +1,8 @@
-import { changeRole, deleteUser, getAllUsers, getUser, updateUser } from "controllers/user.controller";
+import { changeRole, deleteUser, getAllUsers, getUser, updateUser } from "@controllers/user.controller";
 import { Router } from "express";
-import validateToken from "middleware/rbac.middleware";
-import validateRequest from "middleware/validate.middleware ";
-import { changeRoleSchema, updateUserSchema } from "middleware/validators";
+import validateToken from "@middleware/rbac.middleware";
+import validateRequest from "@middleware/validate.middleware ";
+import { changeRoleSchema, updateUserSchema } from "@middleware/validators";
 
 const userRoutes = Router();
 

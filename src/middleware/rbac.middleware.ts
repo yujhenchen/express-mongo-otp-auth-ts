@@ -1,7 +1,7 @@
 import status from 'http-status';
 import { Request, Response, NextFunction } from "express";
-import User from 'models/user.model';
-import { UserRole } from 'constants/userRoles';
+import User from '@models/user.model';
+import { UserRole } from '@constants/userRoles';
 
 const validateToken = async (req: Request, res: Response, next: NextFunction) => {
     try {

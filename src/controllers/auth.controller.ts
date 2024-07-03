@@ -1,10 +1,10 @@
-import { createUser } from './user.controller';
+import { createUser } from '@controllers/user.controller';
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import status from 'http-status';
-import User from 'models/user.model';
-import handleErrorResponse from 'utils/controller.helper';
-import { IUserSignIn, IUserSignOut, IUserSignUp } from 'interfaces/user';
+import User from '@models/user.model';
+import handleErrorResponse from '@utils/controller.helper';
+import { IUserSignIn, IUserSignOut, IUserSignUp } from '@interfaces/user';
 
 export async function signUp(
     req: Request<Record<string, never>, Record<string, never>, IUserSignUp, Record<string, never>>,

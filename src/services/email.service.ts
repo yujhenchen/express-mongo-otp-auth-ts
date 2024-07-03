@@ -1,4 +1,4 @@
-import { IEmail } from 'interfaces/email';
+import { IEmail } from '@interfaces/email';
 import { Transporter, createTransport } from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
@@ -15,6 +15,7 @@ class EmailService {
     }
 
     public createConnection() {
+        // change all the process env from using config
         this.transporter = createTransport({
             host: process.env.SMTP_HOST || '',
             port: Number(process.env.SMTP_PORT) || '',

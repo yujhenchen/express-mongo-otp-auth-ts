@@ -1,7 +1,7 @@
-import { signIn, signOut, signUp } from "controllers/auth.controller";
+import { signIn, signOut, signUp } from "@controllers/auth.controller";
 import { Router } from 'express';
-import validateRequest from "middleware/validate.middleware ";
-import { signOutSchema, signinSchema, signupSchema } from "middleware/validators";
+import validateRequest from "@middleware/validate.middleware ";
+import { signOutSchema, signinSchema, signupSchema } from "@middleware/validators";
 
 const authRoutes = Router();
 

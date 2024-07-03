@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import status from 'http-status';
-import User from 'models/user.model';
-import { IUser, IUserSignUp, IUserUpdate } from 'interfaces/user';
-import handleErrorResponse from 'utils/controller.helper';
+import User from '@models/user.model';
+import { IUser, IUserSignUp, IUserUpdate } from '@interfaces/user';
+import handleErrorResponse from '@utils/controller.helper';
 
 const saltOrRounds = 10;
 

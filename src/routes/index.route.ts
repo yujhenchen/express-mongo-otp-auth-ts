@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction, Router } from "express";
 import status from 'http-status';
-import authRoutes from "./auth.route";
-import userRoutes from "./user.route";
+import authRoutes from "@routes/auth.route";
+import userRoutes from "@routes/user.route";
 
 // middleware that is specific to this router
 const timeLog = (req: Request, res: Response, next: NextFunction) => {
