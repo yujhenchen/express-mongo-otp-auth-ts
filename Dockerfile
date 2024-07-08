@@ -27,7 +27,6 @@ COPY --chown=node:node . .
 #     TOKEN=$(cat /run/secrets/mytoken)
 
 # Build the TypeScript code
-# TODO: fix the error while running this line. See if can use yarn install in dockerfile ??
 RUN yarn build
 
 # Expose the port the app runs on
