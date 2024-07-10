@@ -33,3 +33,7 @@ export const updateUserSchema = Joi.object({
 export const changeRoleSchema = Joi.object({
     role: Joi.string().valid(...Object.values(UserRole)).required()
 }).unknown(false);
+
+export const sendOtpSchema = Joi.object({
+    email: Joi.string().email(emailOptions),
+}).unknown(false);
