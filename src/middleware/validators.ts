@@ -4,7 +4,7 @@ import Joi, { EmailOptions } from "joi";
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+={}[\]:;<>,.?/~\\|-]).{8,16}$/;
 const emailOptions: EmailOptions = Object.freeze({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } });
 
-export const signupSchema = Joi.object({
+export const signUpSchema = Joi.object({
     name: Joi.string().min(3).max(30).required(),
     email: Joi.string().email(emailOptions).required(),
     // mobileNumber: Joi.string().regex(/^[1-9][0-9]{9}$/),
@@ -12,7 +12,7 @@ export const signupSchema = Joi.object({
     repeatPassword: Joi.ref('password')
 });
 
-export const signinSchema = Joi.object({
+export const signInSchema = Joi.object({
     email: Joi.string().email(emailOptions).required(),
     password: Joi.string().pattern(new RegExp(passwordRegex)).required()
 });
