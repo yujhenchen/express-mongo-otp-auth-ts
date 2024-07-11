@@ -1,6 +1,7 @@
+import { IOtpDoc, IOtpModel } from "@/interfaces/otp";
 import { Schema, model } from "mongoose";
 
-const otpSchema = new Schema({
+const otpSchema = new Schema<IOtpDoc, IOtpModel>({
     email: {
         type: String,
         required: true,
@@ -23,6 +24,6 @@ const otpSchema = new Schema({
     },
 });
 
-const OTP = model('otps', otpSchema, 'otps');
+const OTP = model<IOtpDoc, IOtpModel>('otps', otpSchema);
 
 export default OTP;
