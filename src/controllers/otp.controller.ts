@@ -26,6 +26,13 @@ export async function sendOTP(
             foundOTP = await OTP.findOne({ otp }).exec();
         } while (foundOTP);
 
+        /**
+         *  TODO: 
+         *  - insert OTP into database
+         *  - send OTP email ??
+         *  - return response
+         */
+
         res.status(status.OK).json({ message: 'OTP sent' });
     } catch (error) {
         handleErrorResponse(error, res);
