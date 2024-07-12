@@ -262,6 +262,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/otp-generator@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@types/otp-generator/-/otp-generator-4.0.2.tgz#b1efdb53cfba356f13465d10fa513d1b7ae42b85"
+  integrity sha512-9+qqWzuFb332hXPbLgjUyOXlbcaTQkmkmqQjTduvNuOmPV5fW+iLv70JsVEhdUy0DWi4kY34++HDCaWl6N0AYg==
+
 "@types/passport@^1.0.16":
   version "1.0.16"
   resolved "https://registry.yarnpkg.com/@types/passport/-/passport-1.0.16.tgz#5a2918b180a16924c4d75c31254c31cdca5ce6cf"
@@ -1735,6 +1740,11 @@ optionator@^0.9.3:
     prelude-ls "^1.2.1"
     type-check "^0.4.0"
     word-wrap "^1.2.5"
+
+otp-generator@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/otp-generator/-/otp-generator-4.0.1.tgz#ec6bb8d0d14c171318e8eb731fdfcd2dd1ad83e7"
+  integrity sha512-2TJ52vUftA0+J3eque4wwVtpaL4/NdIXDL0gFWFJFVUAZwAN7+9tltMhL7GCNYaHJtuONoier8Hayyj4HLbSag==
 
 p-limit@^3.0.2:
   version "3.1.0"
