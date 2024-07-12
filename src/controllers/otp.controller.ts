@@ -5,6 +5,7 @@ import handleErrorResponse from '@/utils/controller.helper';
 import { IUser } from '@/interfaces/user';
 import User from '@/models/user.model';
 import OTP from '@/models/opt.model';
+import { IOtpDoc } from '@/interfaces/otp';
 
 export async function sendOTP(
     req: Request<Record<string, never>, Record<string, never>, Pick<IUser, 'email'>, Record<string, never>>,
@@ -18,17 +19,12 @@ export async function sendOTP(
             return;
         }
 
-        let otp = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
-        /**
-         * find the otp in database,
-         * if the old one exists, generate a new one until it does not exists
-         * */
-        let foundOTP = OTP.findOne({ otp });
-        while (foundOTP) {
+        let otp: string | null;
+        let foundOTP: IOtpDoc | null;
+        do {
             otp = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
-            foundOTP = OTP.findOne({ otp });
-        }
-
+            foundOTP = await OTP.findOne({ otp }).exec();
+        } while (foundOTP);
 
         res.status(status.OK).json({ message: 'OTP sent' });
     } catch (error) {
