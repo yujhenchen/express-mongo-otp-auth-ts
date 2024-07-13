@@ -6,6 +6,7 @@ import { IUser } from '@/interfaces/user';
 import User from '@/models/user.model';
 import OTP from '@/models/opt.model';
 import { IOtp, IOtpDoc } from '@/interfaces/otp';
+import EmailService from '@/services/email.service';
 
 export async function createOTP(otp: Omit<IOtp, 'createdAt'>) {
     try {
@@ -43,12 +44,6 @@ export async function sendOTP(
             return;
         }
 
-        /**
-         *  TODO: 
-         *  - insert OTP into database
-         *  - send OTP email ??
-         *  - return response
-         */
         const otp = await generateOTP();
 
         const otpPayload = {
@@ -56,6 +51,9 @@ export async function sendOTP(
             otp,
         };
         createOTP(otpPayload);
+
+        const emailService = EmailService.getInstance();
+        emailService.sendOtpEmail(email, emailService.getOtpEmailBody, otp);
 
         res.status(status.OK).json({ message: 'OTP sent' });
     } catch (error) {
