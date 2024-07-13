@@ -50,7 +50,7 @@ class EmailService {
         }
     }
 
-    public async sendOTP(
+    public async sendOtpEmail(
         email: string,
         emailBody: (otpCode: string) => string,
         otp: string): Promise<void> {
