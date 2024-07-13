@@ -16,6 +16,21 @@ export async function createOTP(otp: Omit<IOtp, 'createdAt'>) {
     }
 }
 
+async function generateOTP(): Promise<string> {
+    try {
+        let otp: string | null;
+        let foundOTP: IOtpDoc | null;
+        do {
+            otp = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
+            foundOTP = await OTP.findOne({ otp }).exec();
+        } while (foundOTP);
+        return otp;
+    } catch (error) {
+        console.error(error);
+        return '';
+    }
+}
+
 export async function sendOTP(
     req: Request<Record<string, never>, Record<string, never>, Pick<IUser, 'email'>, Record<string, never>>,
     res: Response) {
@@ -28,19 +43,14 @@ export async function sendOTP(
             return;
         }
 
-        let otp: string | null;
-        let foundOTP: IOtpDoc | null;
-        do {
-            otp = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
-            foundOTP = await OTP.findOne({ otp }).exec();
-        } while (foundOTP);
-
         /**
          *  TODO: 
          *  - insert OTP into database
          *  - send OTP email ??
          *  - return response
          */
+        const otp = await generateOTP();
+
         const otpPayload = {
             email,
             otp,
