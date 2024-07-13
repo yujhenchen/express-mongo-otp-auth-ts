@@ -5,17 +5,8 @@ import handleErrorResponse from '@/utils/controller.helper';
 import { IUser } from '@/interfaces/user';
 import User from '@/models/user.model';
 import OTP from '@/models/opt.model';
-import { IOtp, IOtpDoc } from '@/interfaces/otp';
+import { IOtpDoc } from '@/interfaces/otp';
 import EmailService from '@/services/email.service';
-
-export async function createOTP(otp: Omit<IOtp, 'createdAt'>) {
-    try {
-        return await new OTP(otp).save();
-    } catch (error) {
-        console.error(error);
-        return null;
-    }
-}
 
 async function generateOTP(): Promise<string> {
     try {
@@ -50,10 +41,10 @@ export async function sendOTP(
             email,
             otp,
         };
-        createOTP(otpPayload);
+        await new OTP(otpPayload).save();
 
         const emailService = EmailService.getInstance();
-        emailService.sendOtpEmail(email, emailService.getOtpEmailBody, otp);
+        await emailService.sendOtpEmail(email, emailService.getOtpEmailBody, otp);
 
         res.status(status.OK).json({ message: 'OTP sent' });
     } catch (error) {
