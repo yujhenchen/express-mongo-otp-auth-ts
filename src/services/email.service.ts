@@ -28,6 +28,11 @@ class EmailService {
         } as SMTPTransport.Options);
     }
 
+    public getOtpEmailBody(otp: string): string {
+        return `<h1>Please confirm your OTP</h1>
+       <p>Here is your OTP code: ${otp}</p>`
+    }
+
     public async sendMail(options: IEmail) {
         if (!this.transporter)
             return 'transporter does not exist, please create connection';
