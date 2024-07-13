@@ -5,7 +5,16 @@ import handleErrorResponse from '@/utils/controller.helper';
 import { IUser } from '@/interfaces/user';
 import User from '@/models/user.model';
 import OTP from '@/models/opt.model';
-import { IOtpDoc } from '@/interfaces/otp';
+import { IOtp, IOtpDoc } from '@/interfaces/otp';
+
+export async function createOTP(otp: Omit<IOtp, 'createdAt'>) {
+    try {
+        return await new OTP(otp).save();
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
 
 export async function sendOTP(
     req: Request<Record<string, never>, Record<string, never>, Pick<IUser, 'email'>, Record<string, never>>,
@@ -32,6 +41,11 @@ export async function sendOTP(
          *  - send OTP email ??
          *  - return response
          */
+        const otpPayload = {
+            email,
+            otp,
+        };
+        createOTP(otpPayload);
 
         res.status(status.OK).json({ message: 'OTP sent' });
     } catch (error) {
