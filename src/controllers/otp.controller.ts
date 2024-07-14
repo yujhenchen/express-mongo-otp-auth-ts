@@ -44,7 +44,7 @@ export async function sendOTP(
             email,
             otp,
         };
-        await new OTP(otpPayload).save();
+        await OTP.findOneAndUpdate({ email }, { $set: otpPayload }, { upsert: true, new: true });
 
         res.status(status.OK).json({ message: 'OTP sent' });
     } catch (error) {
