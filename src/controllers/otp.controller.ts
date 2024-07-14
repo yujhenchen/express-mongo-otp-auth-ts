@@ -37,14 +37,14 @@ export async function sendOTP(
 
         const otp = await generateOTP();
 
+        const emailService = EmailService.getInstance();
+        await emailService.sendOtpEmail(email, emailService.getOtpEmailBody, otp);
+
         const otpPayload = {
             email,
             otp,
         };
         await new OTP(otpPayload).save();
-
-        const emailService = EmailService.getInstance();
-        await emailService.sendOtpEmail(email, emailService.getOtpEmailBody, otp);
 
         res.status(status.OK).json({ message: 'OTP sent' });
     } catch (error) {
