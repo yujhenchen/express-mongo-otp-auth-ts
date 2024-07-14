@@ -1,3 +1,4 @@
+import config from '@/config/config';
 import { IEmail } from '@interfaces/email';
 import { Transporter, createTransport } from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
@@ -17,13 +18,13 @@ class EmailService {
     public createConnection() {
         // change all the process env from using config
         this.transporter = createTransport({
-            host: process.env.SMTP_HOST || '',
-            port: Number(process.env.SMTP_PORT) || '',
+            host: config.smtpHost,
+            port: Number(config.smtpPort),
             // Use `true` for port 465, `false` for all other ports
             secure: false,
             auth: {
-                user: process.env.SMTP_USERNAME,
-                pass: process.env.SMTP_PASSWORD,
+                user: config.smtpUsername,
+                pass: config.smtpPassword,
             },
         } as SMTPTransport.Options);
     }
@@ -60,7 +61,7 @@ class EmailService {
             const mailService = EmailService.getInstance();
             mailService.createConnection();
 
-            const sender = process.env.SMTP_SENDER;
+            const sender = config.smtpSender;
             if (!sender) throw new Error('Error, cannot find the sender');
 
             const options: IEmail = {
