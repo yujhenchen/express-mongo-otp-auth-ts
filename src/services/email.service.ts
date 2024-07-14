@@ -47,11 +47,11 @@ class EmailService {
                 text: options.text,
                 html: options.html,
             }) as string;
-            console.log(response);
+            // console.log(response);
             return response;
         } catch (error) {
             console.error(error);
-            return '';
+            throw error;
         }
     }
 
