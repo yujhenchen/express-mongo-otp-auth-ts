@@ -5,5 +5,5 @@ export interface IEmail {
     bcc?: string;
     subject: string;
     text: string;
-    html: string;
+    html?: string;
 }

@@ -41,11 +41,8 @@ class EmailService {
             const response = await this.transporter.sendMail({
                 from: options.from,
                 to: options.to,
-                cc: options.cc,
-                bcc: options.bcc,
                 subject: options.subject,
                 text: options.text,
-                html: options.html,
             }) as string;
             // console.log(response);
             return response;
@@ -63,12 +60,14 @@ class EmailService {
             const mailService = EmailService.getInstance();
             mailService.createConnection();
 
+            const sender = process.env.SMTP_SENDER;
+            if (!sender) throw new Error('Error, cannot find the sender');
+
             const options: IEmail = {
-                from: '',
+                from: sender,
                 to: email,
                 subject: 'Verification Email',
                 text: emailBody(otp),
-                html: '',
             };
             const mailResponse = await mailService.sendMail(options);
             console.log('Email sent successfully: ', mailResponse);
