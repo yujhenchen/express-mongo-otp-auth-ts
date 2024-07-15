@@ -1,10 +1,5 @@
 ## How to
 
-### Build docker image
-
-#### Set sensitive data (such as JWT secret), and not sensitive data (such as node env)
-
-
 ## Issues and solutions
 
 ### Get error `Error: Method no longer accepts array arguments: valid`
