@@ -29,8 +29,6 @@
       </ul>
     </li>
     <!-- <li><a href="#usage">Usage</a></li> -->
-    <li><a href="#roadmap">Roadmap</a></li>
-    <!-- <li><a href="#contributing">Contributing</a></li> -->
     <li><a href="#issues-and-solutions">Issues and solutions</a></li>
     <li><a href="#license">License</a></li>
   </ol>
@@ -98,16 +96,6 @@ Use this space to show useful examples of how a project can be used. Additional 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
-
-<!-- ROADMAP -->
-
-## Roadmap
-
-- [x] xxx
-
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ISSUES AND SOLUTIONS -->
 
