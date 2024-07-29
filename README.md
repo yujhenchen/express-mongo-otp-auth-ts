@@ -4,11 +4,8 @@
 <br />
 <div align="center">
 
-<h3 align="center">Project name</h3>
+<h3 align="center">Express MongoDB OTP Auth API</h3>
 
-  <p align="center">
-    project desc
-  </p>
 </div>
 
 <!-- TABLE OF CONTENTS -->
