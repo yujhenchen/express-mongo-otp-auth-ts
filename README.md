@@ -38,9 +38,18 @@
 
 ## About The Project
 
-<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
+A Restful API backend application built with Express.js and TypeScript, offering robust and scalable solutions for user authentication and data management.
 
-project desc
+### Feautres
+1. mean Stack Architecture: Follows the [mean stack](https://github.com/linnovate/mean) for a well-structured and maintainable project
+2. Schema and Data Validation: Utilizes Joi for defining schemas and validating data, including environment variables (process.env)
+3. MongoDB Integration: Employs Mongoose to model and interact with MongoDB Atlas
+4. User Authentication: Supports user sign-up, sign-in, and logout functionalities
+5. Email Service with OTP: Built with Nodemailer and Brevo, allowing the generation and sending of OTP codes via email
+6. CRUD Operations: Provides create, read, update, and delete (CRUD) operations for user data in the MongoDB Atlas database
+7. Role-Based Access Control: Implements role-based access control using Bearer Authentication for sensitive API endpoints, such as changing user roles and deleting users
+8. Request Validation Middleware: Includes middleware for validating incoming requests to ensure data integrity and security
+9. JWT Authentication: Generates JSON Web Tokens (JWT) using the jsonwebtoken library for secure user authentication and authorization
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
