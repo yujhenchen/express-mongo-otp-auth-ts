@@ -3,23 +3,11 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <!-- <a href="https://github.com/yujhenchen/express-mongo-otp-auth-ts">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a> -->
 
 <h3 align="center">Project name</h3>
 
   <p align="center">
     project desc
-    <br />
-    <a href="https://github.com/yujhenchen/express-mongo-otp-auth-ts"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://jen-restaurant-ordering.netlify.app" target=”_blank”>View Demo</a>
-    ·
-    <a href="https://github.com/yujhenchen/express-mongo-otp-auth-ts/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/yujhenchen/express-mongo-otp-auth-ts/issues">Request Feature</a>
   </p>
 </div>
 
@@ -62,7 +50,14 @@ project desc
 
 ### Built With
 
-<!-- - [![React][React.js]][React-url]-->
+- [![Express.js]][Express.js-url]
+- [![MongoDB]][MongoDB-url]
+- [![TypeScript]][TypeScript-url]
+- [Joi]
+- [Mongoose]
+- [jsonwebtoken]
+- [module-alias]
+- [Nodemailer]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -172,26 +167,17 @@ Project Link: [https://github.com/yujhenchen/express-mongo-otp-auth-ts](https://
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
-[contributors-shield]: https://img.shields.io/github/contributors/yujhenchen/express-mongo-otp-auth-ts.svg?style=for-the-badge
-[contributors-url]: https://github.com/yujhenchen/express-mongo-otp-auth-ts/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/yujhenchen/express-mongo-otp-auth-ts.svg?style=for-the-badge
-[forks-url]: https://github.com/yujhenchen/express-mongo-otp-auth-ts/network/members
-[stars-shield]: https://img.shields.io/github/stars/yujhenchen/express-mongo-otp-auth-ts.svg?style=for-the-badge
-[stars-url]: https://github.com/yujhenchen/express-mongo-otp-auth-ts/stargazers
-[issues-shield]: https://img.shields.io/github/issues/yujhenchen/express-mongo-otp-auth-ts.svg?style=for-the-badge
-[issues-url]: https://github.com/yujhenchen/express-mongo-otp-auth-ts/issues
-[license-shield]: https://img.shields.io/github/license/yujhenchen/express-mongo-otp-auth-ts.svg?style=for-the-badge
-[license-url]: https://github.com/yujhenchen/express-mongo-otp-auth-ts/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.png
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
-
-
-
-
+[Express.js]: https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB
+[Express.js-url]: https://expressjs.com/
+[MongoDB]: https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white
+[MongoDB-url]: https://www.mongodb.com/products/platform/atlas-database
+[TypeScript]: https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white
+[TypeScript-url]: https://www.typescriptlang.org/
+[Joi]: https://joi.dev/
+[Mongoose]: https://mongoosejs.com/
+[jsonwebtoken]: https://github.com/auth0/node-jsonwebtoken
+[module-alias]: https://github.com/ilearnio/module-alias
+[Nodemailer]: https://nodemailer.com/
 
 ## How to
 
