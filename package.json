@@ -10,6 +10,9 @@
     "start": "node -r module-alias/register dist/index.js",
     "dev": "nodemon --watch src --exec ts-node -r tsconfig-paths/register src/index.ts"
   },
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "_moduleAliases": {
     "@root": "dist",
     "@config": "dist/config",
