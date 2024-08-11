@@ -1,9 +1,9 @@
-import { createUser } from '@controllers/user.controller';
+import { createUser } from '../../src/controllers/user.controller';
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import status from 'http-status';
-import User from '@models/user.model';
-import handleErrorResponse from '@utils/controller.helper';
+import User from '../models/user.model';
+import handleErrorResponse from '../utils/controller.helper';
 import { IUserSignIn, IUserSignOut, IUserSignUp } from '@interfaces/user';
 
 export async function signUp(

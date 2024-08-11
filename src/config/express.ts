@@ -7,8 +7,8 @@ import createError from 'http-errors'
 import { Request, Response, NextFunction } from 'express';
 import status from 'http-status';
 import favicon from 'serve-favicon';
-import config from '@config/config';
-import routes from '@routes/index.route';
+import config from './config';
+import routes from '../routes/index.route';
 import path from 'path';
 
 const app = express();
